@@ -37,6 +37,9 @@ function! drawing#InitializeVisualWhitespace()
   endif
 endfunction
 
+
+" private
+
 function! s:RedrawVisualWhitespace(timer)
   if s:IsVisualMode()
     if !s:DoMatchesExist()
@@ -54,9 +57,6 @@ function! s:RedrawVisualWhitespace(timer)
     endif
   endif
 endfunction
-
-
-" private
 
 function! s:IsVisualMode()
   if mode(1) =~ 'v'
