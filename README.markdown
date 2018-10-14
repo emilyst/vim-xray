@@ -16,6 +16,9 @@ Status
 This plugin is pre-alpha. It's undocumented. It's not guaranteed to
 work. It might break everything.
 
+In fact, the only thing working right now is space revealing. The tab
+feature is hopelessly broken.
+
 
 How Does It Work?
 -----------------
