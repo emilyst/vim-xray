@@ -19,7 +19,7 @@ let s:space_char = get(g:, 'visual_whitespace_space_char', '·')
 let s:tab_pattern = get(g:, 'visual_whitespace_tab_pattern', '\%V\t\%V')
 
 " conceal char for tabs
-let s:tab_char = get(g:, 'visual_whitespace_space_char', '›')
+let s:tab_char = get(g:, 'visual_whitespace_tab_char', '›')
 
 " foreground highlight group for whitespace chars
 let s:fg_group = get(g:, 'visual_whitespace_fg_group', 'NonText')
