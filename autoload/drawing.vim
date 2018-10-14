@@ -85,8 +85,20 @@ function! s:RestoreOriginalConcealSettings()
 endfunction
 
 function! s:ConfigureConcealMatchesForWhitespace()
-  let b:space_match = matchadd('Conceal', s:space_pattern, 10, -1, { 'conceal': s:space_char })
-  let b:tab_match   = matchadd('Conceal', s:tab_pattern,   10, -1, { 'conceal': s:tab_char })
+  let b:space_match = matchadd(
+        \   'Conceal',
+        \   s:space_pattern,
+        \   -1,
+        \   -1,
+        \   { 'conceal': s:space_char }
+        \ )
+  let b:tab_match = matchadd(
+        \   'Conceal',
+        \   s:tab_pattern,
+        \   -1,
+        \   -1,
+        \   { 'conceal': s:tab_char }
+        \ )
 endfunction
 
 function! s:ClearConcealMatchesForWhitespace()
