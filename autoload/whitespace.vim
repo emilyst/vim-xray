@@ -42,18 +42,19 @@ endfunction
 
 " private
 
+" main method
 function! s:RedrawVisualWhitespace(timer)
   if s:IsVisualMode()
-    if !s:DoMatchesExist()
-      call s:ConfigureConcealSettingsForVisualMode()
-      call s:ConfigureConcealMatchesForWhitespace()
+    if !s:AreHighlightPatternsConfigured()
+      call s:ConfigureConcealOptionsForVisualMode()
+      call s:ConfigureWhitespaceHighlightPatterns()
       call s:ConfigureVisualWhitespaceHighlight()
       if s:force_redraw | redraw | endif
     endif
   else
-    if s:DoMatchesExist()
-      call s:RestoreOriginalConcealSettings()
-      call s:ClearConcealMatchesForWhitespace()
+    if s:AreHighlightPatternsConfigured()
+      call s:RestoreOriginalConcealOptions()
+      call s:ClearWhitespaceHighlightPatterns()
       call s:RestoreOriginalHighlight()
       if s:force_redraw | redraw | endif
     endif
@@ -68,23 +69,23 @@ function! s:IsVisualMode()
   endif
 endfunction
 
-function! s:DoMatchesExist()
-  return get(b:, 'space_match', -1) != -1
+function! s:AreHighlightPatternsConfigured()
+  return get(b:, 'space_match', -1) != -1 || get(b:, 'tab_match', -1) != -1
 endfunction
 
-function! s:ConfigureConcealSettingsForVisualMode()
+function! s:ConfigureConcealOptionsForVisualMode()
   let b:original_concealcursor = &l:concealcursor
   let b:original_conceallevel  = &l:conceallevel
   let &l:concealcursor         .= 'v'
   let &l:conceallevel          = 2
 endfunction
 
-function! s:RestoreOriginalConcealSettings()
+function! s:RestoreOriginalConcealOptions()
   let &l:concealcursor = get(b:, 'original_concealcursor', &l:concealcursor)
   let &l:conceallevel  = get(b:, 'original_conceallevel',  &l:conceallevel)
 endfunction
 
-function! s:ConfigureConcealMatchesForWhitespace()
+function! s:ConfigureWhitespaceHighlightPatterns()
   let b:space_match = matchadd(
         \   'Conceal',
         \   s:space_pattern,
@@ -101,7 +102,7 @@ function! s:ConfigureConcealMatchesForWhitespace()
         \ )
 endfunction
 
-function! s:ClearConcealMatchesForWhitespace()
+function! s:ClearWhitespaceHighlightPatterns()
   call matchdelete(b:space_match)
   call matchdelete(b:tab_match)
   unlet b:space_match
