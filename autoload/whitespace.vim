@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 " enable
-let s:enabled = get(g:, 'visual_whitespace_enabled', v:true)
+let s:enable = get(g:, 'visual_whitespace_enable', v:true)
 
 " milliseconds between each timer call
 let s:refresh_interval = get(g:, 'visual_whitespace_refresh_interval', 100)
@@ -30,7 +30,7 @@ let s:fg_group = get(g:, 'visual_whitespace_fg_group', 'NonText')
 let s:redraw_timer = -1
 
 function! whitespace#InitializeVisualWhitespace()
-  if s:enabled
+  if s:enable
     let s:redraw_timer = timer_start(
           \   s:refresh_interval,
           \   function('s:RedrawVisualWhitespace'),
@@ -42,7 +42,7 @@ endfunction
 
 " private
 
-" main method
+" main method, called every interval
 function! s:RedrawVisualWhitespace(timer)
   if s:IsVisualMode()
     if !s:AreHighlightPatternsConfigured()
