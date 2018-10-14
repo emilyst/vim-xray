@@ -24,7 +24,7 @@ function! xray#settings#GetSpaceCharSetting()
 endfunction
 
 function! xray#settings#GetSpacePatternSetting()
-  return get(g:, 'xray_space_pattern',    '\%V \%V')
+  return get(g:, 'xray_space_pattern',    ' ')
 endfunction
 
 function! xray#settings#GetTabCharSetting()
@@ -32,5 +32,5 @@ function! xray#settings#GetTabCharSetting()
 endfunction
 
 function! xray#settings#GetTabPatternSetting()
-  return get(g:, 'xray_tab_pattern',      '\v%V\t\zs%V')
+  return get(g:, 'xray_tab_pattern',      '\t\zs')
 endfunction

@@ -59,14 +59,14 @@ function! s:ConfigureWhitespaceHighlightPatterns()
 
   call add(b:highlight_pattern_matches, matchadd(
         \   'Conceal',
-        \   xray#settings#GetSpacePatternSetting(),
+        \   '\%V'. xray#settings#GetSpacePatternSetting() . '\%V',
         \   -1,
         \   -1,
         \   { 'conceal': xray#settings#GetSpaceCharSetting() }
         \ ))
   call add(b:highlight_pattern_matches, matchadd(
         \   'Conceal',
-        \   xray#settings#GetTabPatternSetting(),
+        \   '\%V'. xray#settings#GetTabPatternSetting() . '\%V',
         \   -1,
         \   -1,
         \   { 'conceal': xray#settings#GetTabCharSetting() }
