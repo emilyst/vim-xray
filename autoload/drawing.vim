@@ -41,7 +41,7 @@ endfunction
 function! s:SetConcealSettingsForVisualMode()
   let b:original_concealcursor = &l:concealcursor
   let b:original_conceallevel  = &l:conceallevel
-  let &l:concealcursor         = 'v'
+  let &l:concealcursor         .= 'v'
   let &l:conceallevel          = 2
 endfunction
 

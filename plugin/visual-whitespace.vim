@@ -7,7 +7,6 @@ if &compatible
       \ || (v:version == 704 && !has('patch1154'))
       \ || !has('syntax')
       \ || !has('timers')
-      \ || !has('autocmd')  " TODO: remove?
       \ || !has('conceal')
       \ || exists('g:loaded_visual_whitespace')
   finish
