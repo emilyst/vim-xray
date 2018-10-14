@@ -1,39 +1,35 @@
 scriptencoding utf-8
 
 " enable
-let s:visual_whitespace_enabled =
-      \ get(g:, 'visual_whitespace_enabled', v:true)
+let s:enabled = get(g:, 'visual_whitespace_enabled', v:true)
 
 " milliseconds between each timer call
-let s:visual_whitespace_refresh_interval =
-      \ get(g:, 'visual_whitespace_refresh_interval', 100)
+let s:refresh_interval = get(g:, 'visual_whitespace_refresh_interval', 100)
+
+" whether to force a redraw on a highlight change (probably needed)
+let s:force_redraw = get(g:, 'visual_whitespace_force_redraw', v:true)
 
 " pattern to match spaces
-let s:visual_whitespace_space_pattern =
-      \ get(g:, 'visual_whitespace_space_pattern', '\%V \%V')
+let s:space_pattern = get(g:, 'visual_whitespace_space_pattern', '\%V \%V')
 
 " conceal char for spaces
-let s:visual_whitespace_space_char =
-      \ get(g:, 'visual_whitespace_space_char', '·')
+let s:space_char = get(g:, 'visual_whitespace_space_char', '·')
 
 " pattern to match tabs
-let s:visual_whitespace_tab_pattern =
-      \ get(g:, 'visual_whitespace_tab_pattern', '\%V\t\%V')
+let s:tab_pattern = get(g:, 'visual_whitespace_tab_pattern', '\%V\t\%V')
 
 " conceal char for tabs
-let s:visual_whitespace_tab_char =
-      \ get(g:, 'visual_whitespace_space_char', '›')
+let s:tab_char = get(g:, 'visual_whitespace_space_char', '›')
+
+" foreground highlight group for whitespace chars
+let s:fg_group = get(g:, 'visual_whitespace_fg_group', 'NonText')
 
 
 " public
 
 function! drawing#InitializeVisualWhitespace()
-  if s:visual_whitespace_enabled
-    call timer_start(
-          \   s:visual_whitespace_refresh_interval,
-          \   function('s:RedrawVisualWhitespace'),
-          \   { 'repeat': -1 }
-          \ )
+  if s:enabled
+    call timer_start(s:refresh_interval, function('s:RedrawVisualWhitespace'), { 'repeat': -1 })
   endif
 endfunction
 
@@ -43,17 +39,17 @@ endfunction
 function! s:RedrawVisualWhitespace(timer)
   if s:IsVisualMode()
     if !s:DoMatchesExist()
-      call s:SetConcealSettingsForVisualMode()
+      call s:ConfigureConcealSettingsForVisualMode()
       call s:ConfigureConcealMatchesForWhitespace()
-      call s:LinkConcealToVisualNonText()
-      redraw
+      call s:ConfigureVisualWhitespaceHighlight()
+      if s:force_redraw | redraw | endif
     endif
   else
     if s:DoMatchesExist()
-      call s:RestoreConcealSettingsToOriginals()
+      call s:RestoreOriginalConcealSettings()
       call s:ClearConcealMatchesForWhitespace()
-      call s:UnlinkConcealFromVisualNonText()
-      redraw
+      call s:RestoreOriginalHighlight()
+      if s:force_redraw | redraw | endif
     endif
   endif
 endfunction
@@ -70,33 +66,21 @@ function! s:DoMatchesExist()
   return get(b:, 'space_match', -1) != -1
 endfunction
 
-function! s:SetConcealSettingsForVisualMode()
+function! s:ConfigureConcealSettingsForVisualMode()
   let b:original_concealcursor = &l:concealcursor
   let b:original_conceallevel  = &l:conceallevel
   let &l:concealcursor         .= 'v'
   let &l:conceallevel          = 2
 endfunction
 
-function! s:RestoreConcealSettingsToOriginals()
+function! s:RestoreOriginalConcealSettings()
   let &l:concealcursor = get(b:, 'original_concealcursor', &l:concealcursor)
   let &l:conceallevel  = get(b:, 'original_conceallevel',  &l:conceallevel)
 endfunction
 
 function! s:ConfigureConcealMatchesForWhitespace()
-  let b:space_match = matchadd(
-        \   'Conceal',
-        \   s:visual_whitespace_space_pattern,
-        \   10,
-        \   -1,
-        \   { 'conceal': s:visual_whitespace_space_char }
-        \ )
-  let b:tab_match = matchadd(
-        \   'Conceal',
-        \   s:visual_whitespace_tab_pattern,
-        \   10,
-        \   -1,
-        \   { 'conceal': s:visual_whitespace_tab_char }
-        \ )
+  let b:space_match = matchadd('Conceal', s:space_pattern, 10, -1, { 'conceal': s:space_char })
+  let b:tab_match   = matchadd('Conceal', s:tab_pattern,   10, -1, { 'conceal': s:tab_char })
 endfunction
 
 function! s:ClearConcealMatchesForWhitespace()
@@ -106,22 +90,28 @@ function! s:ClearConcealMatchesForWhitespace()
   unlet b:tab_match
 endfunction
 
-function! s:UnlinkConcealFromVisualNonText()
-  execute 'highlight! link Conceal NONE'
-  execute 'highlight clear VisualNonText'
+function! s:ConfigureVisualWhitespaceHighlight()
+  call s:LinkConcealToVisualWhitespaceHighlightGroup()
 endfunction
 
-function! s:LinkConcealToVisualNonText()
-  let l:visual_group_details  = s:GetHighlightGroupDetails('Visual')
-  let l:nontext_group_details = s:GetHighlightGroupDetails('NonText')
-
-  " create a 'VisualNonText' (just a crude mash of the two)
-  execute 'highlight VisualNonText ' . l:visual_group_details . ' ' . l:nontext_group_details
-  execute 'highlight! link Conceal VisualNonText'
+function! s:RestoreOriginalHighlight()
+  execute 'silent highlight Conceal ' . get(b:, 'original_conceal_group_details', '')
+  execute 'highlight clear VisualWhitespace'
 endfunction
 
 " resulting highlight should have the background of the Visual group and
-" the other attributes of the NonText group
+" the other attributes of the chosen foreground highlight group
+function! s:LinkConcealToVisualWhitespaceHighlightGroup()
+  let l:visual_group_details           = s:GetHighlightGroupDetails('Visual')
+  let l:fg_group_details               = s:GetHighlightGroupDetails(s:fg_group)
+  let b:original_conceal_group_details = s:GetHighlightGroupDetails('Conceal')
+
+  " create a 'VisualWhitespace' highlight group which is a crude mash of
+  " the two
+  execute 'highlight VisualWhitespace ' . l:visual_group_details . ' ' . l:fg_group_details
+  execute 'highlight! link Conceal VisualWhitespace'
+endfunction
+
 function! s:GetHighlightGroupDetails(group)
   redir => l:highlight_output
   execute 'silent highlight ' . a:group
@@ -133,7 +123,7 @@ function! s:GetHighlightGroupDetails(group)
     let l:linked_group = strpart(l:highlight_output, l:index + 1)
 
     redir => l:highlight_output
-    execute 'highlight ' . l:linked_group
+    execute 'silent highlight ' . l:linked_group
     redir END
   endwhile
 

@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 " require 7.4.1154 for v:true, v:false, etc.
-" require nocompatible, syntax, conceal, autocmd
+" require nocompatible, syntax, conceal, autocmd, timers
 if &compatible
       \ || v:version < 704
       \ || (v:version == 704 && !has('patch1154'))
