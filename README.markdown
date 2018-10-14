@@ -10,6 +10,13 @@ selection.
 **TODO**: Add an example here.
 
 
+Status
+------
+
+This plugin is pre-alpha. It's undocumented. It's not guaranteed to
+work. It might break everything.
+
+
 How Does It Work?
 -----------------
 
