@@ -64,13 +64,6 @@ function! s:ConfigureWhitespaceHighlightPatterns()
         \   -1,
         \   { 'conceal': xray#settings#GetSpaceCharSetting() }
         \ ))
-  call add(b:highlight_pattern_matches, matchadd(
-        \   'Conceal',
-        \   '\%V'. xray#settings#GetTabPatternSetting() . '\%V',
-        \   -1,
-        \   -1,
-        \   { 'conceal': xray#settings#GetTabCharSetting() }
-        \ ))
 endfunction
 
 function! s:ClearWhitespaceHighlightPatterns()

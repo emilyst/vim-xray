@@ -19,18 +19,11 @@ function! xray#settings#GetRefreshIntervalSetting()
   return get(g:, 'xray_refresh_interval', 100)
 endfunction
 
+" TODO: default to listchars:space
 function! xray#settings#GetSpaceCharSetting()
   return get(g:, 'xray_space_char',       '·')
 endfunction
 
 function! xray#settings#GetSpacePatternSetting()
   return get(g:, 'xray_space_pattern',    ' ')
-endfunction
-
-function! xray#settings#GetTabCharSetting()
-  return get(g:, 'xray_tab_char',         '›')
-endfunction
-
-function! xray#settings#GetTabPatternSetting()
-  return get(g:, 'xray_tab_pattern',      '\t\zs')
 endfunction

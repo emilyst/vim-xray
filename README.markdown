@@ -16,8 +16,11 @@ Status
 This plugin is pre-alpha. It's undocumented. It's not guaranteed to
 work. It might break everything.
 
-In fact, the only thing working right now is space revealing. The tab
-feature is hopelessly broken.
+In fact, the only thing working right now is revealing spaces. I might
+be able to get other things working, but it will be an even gnarlier
+hack: hacking "`listchars`" on the fly in Visual mode such that the
+"`NonText`" highlight group only appears visible within a visual
+selection.
 
 
 How Does It Work?
