@@ -1,0 +1,13 @@
+*visual-whitespace*             Easily see the count of matches for your search
+
+     Visualize your whitespace by selecting it in Visual mode
+
+Author:  Emily St <https://emily.st>
+Repo:    https://github.com/emilyst/visual-whitespace
+License: CC0 (Public Domain)
+
+
+==============================================================================
+CONTENTS                                     *visual-whitespace-contents*
+
+TODO
