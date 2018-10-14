@@ -45,16 +45,16 @@ endfunction
 " main method, called every interval
 function! s:RedrawVisualWhitespace(timer)
   if s:IsVisualMode()
-    if !s:AreHighlightPatternsConfigured()
-      call s:ConfigureConcealOptionsForVisualMode()
+    if !s:AreWhitespaceHighlightPatternsConfigured()
       call s:ConfigureWhitespaceHighlightPatterns()
+      call s:ConfigureConcealOptionsForVisualMode()
       call s:ConfigureVisualWhitespaceHighlight()
       if s:force_redraw | redraw | endif
     endif
   else
-    if s:AreHighlightPatternsConfigured()
-      call s:RestoreOriginalConcealOptions()
+    if s:AreWhitespaceHighlightPatternsConfigured()
       call s:ClearWhitespaceHighlightPatterns()
+      call s:RestoreOriginalConcealOptions()
       call s:RestoreOriginalHighlight()
       if s:force_redraw | redraw | endif
     endif
@@ -69,8 +69,39 @@ function! s:IsVisualMode()
   endif
 endfunction
 
-function! s:AreHighlightPatternsConfigured()
-  return get(b:, 'space_match', -1) != -1 || get(b:, 'tab_match', -1) != -1
+function! s:AreWhitespaceHighlightPatternsConfigured()
+  if len(get(b:, 'highlight_pattern_matches', [])) > 0
+    return v:true
+  else
+    return v:false
+  endif
+endfunction
+
+function! s:ConfigureWhitespaceHighlightPatterns()
+  let b:highlight_pattern_matches = get(b:, 'highlight_pattern_matches', [])
+
+  call add(b:highlight_pattern_matches, matchadd(
+        \   'Conceal',
+        \   s:space_pattern,
+        \   -1,
+        \   -1,
+        \   { 'conceal': s:space_char }
+        \ ))
+  call add(b:highlight_pattern_matches, matchadd(
+        \   'Conceal',
+        \   s:tab_pattern,
+        \   -1,
+        \   -1,
+        \   { 'conceal': s:tab_char }
+        \ ))
+endfunction
+
+function! s:ClearWhitespaceHighlightPatterns()
+  let b:highlight_pattern_matches = get(b:, 'highlight_pattern_matches', [])
+  for id in b:highlight_pattern_matches
+    call matchdelete(id)
+  endfor
+  let b:highlight_pattern_matches = []
 endfunction
 
 function! s:ConfigureConcealOptionsForVisualMode()
@@ -83,30 +114,6 @@ endfunction
 function! s:RestoreOriginalConcealOptions()
   let &l:concealcursor = get(b:, 'original_concealcursor', &l:concealcursor)
   let &l:conceallevel  = get(b:, 'original_conceallevel',  &l:conceallevel)
-endfunction
-
-function! s:ConfigureWhitespaceHighlightPatterns()
-  let b:space_match = matchadd(
-        \   'Conceal',
-        \   s:space_pattern,
-        \   -1,
-        \   -1,
-        \   { 'conceal': s:space_char }
-        \ )
-  let b:tab_match = matchadd(
-        \   'Conceal',
-        \   s:tab_pattern,
-        \   -1,
-        \   -1,
-        \   { 'conceal': s:tab_char }
-        \ )
-endfunction
-
-function! s:ClearWhitespaceHighlightPatterns()
-  call matchdelete(b:space_match)
-  call matchdelete(b:tab_match)
-  unlet b:space_match
-  unlet b:tab_match
 endfunction
 
 function! s:ConfigureVisualWhitespaceHighlight()
