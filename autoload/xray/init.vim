@@ -19,19 +19,21 @@ endfunction
 
 " main method, called every interval
 function! s:RedrawXray(timer)
-  if s:IsVisualMode()
-    if !s:AreWhitespaceHighlightPatternsConfigured()
-      call s:ConfigureWhitespaceHighlightPatterns()
-      call s:ConfigureConcealOptionsForVisualMode()
-      call s:ConfigureXrayHighlight()
-      if xray#settings#GetForceRedrawSetting() | redraw | endif
-    endif
-  else
-    if s:AreWhitespaceHighlightPatternsConfigured()
-      call s:ClearWhitespaceHighlightPatterns()
-      call s:RestoreOriginalConcealOptions()
-      call s:RestoreOriginalHighlight()
-      if xray#settings#GetForceRedrawSetting() | redraw | endif
+  if xray#settings#GetEnableSetting()
+    if s:IsVisualMode()
+      if !s:AreWhitespaceHighlightPatternsConfigured()
+        call s:ConfigureWhitespaceHighlightPatterns()
+        call s:ConfigureConcealOptionsForVisualMode()
+        call s:ConfigureXrayHighlight()
+        if xray#settings#GetForceRedrawSetting() | redraw | endif
+      endif
+    else
+      if s:AreWhitespaceHighlightPatternsConfigured()
+        call s:ClearWhitespaceHighlightPatterns()
+        call s:RestoreOriginalConcealOptions()
+        call s:RestoreOriginalHighlight()
+        if xray#settings#GetForceRedrawSetting() | redraw | endif
+      endif
     endif
   endif
 endfunction
