@@ -15,11 +15,9 @@ endif
 
 let g:loaded_visual_whitespace = v:true
 
-call timer_start(100, function('drawing#RedrawVisualWhitespace'), { 'repeat': -1 })
-
-" if !exists('#VisualWhitespace')
-"   augroup VisualWhitespace
-"     autocmd!
-"     autocmd CursorMoved * call drawing#RedrawVisualWhitespace()
-"   augroup END
-" endif
+if !exists('#InitializeVisualWhitespace')
+  augroup InitializeVisualWhitespace
+    autocmd!
+    autocmd VimEnter * call drawing#InitializeVisualWhitespace()
+  augroup END
+endif

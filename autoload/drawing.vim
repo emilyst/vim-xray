@@ -1,15 +1,48 @@
 scriptencoding utf-8
 
+" enable
+let s:visual_whitespace_enabled =
+      \ get(g:, 'visual_whitespace_enabled', v:true)
+
+" milliseconds between each timer call
+let s:visual_whitespace_refresh_interval =
+      \ get(g:, 'visual_whitespace_refresh_interval', 100)
+
+" pattern to match spaces
+let s:visual_whitespace_space_pattern =
+      \ get(g:, 'visual_whitespace_space_pattern', '\%V \%V')
+
+" conceal char for spaces
+let s:visual_whitespace_space_char =
+      \ get(g:, 'visual_whitespace_space_char', '·')
+
+" pattern to match tabs
+let s:visual_whitespace_tab_pattern =
+      \ get(g:, 'visual_whitespace_tab_pattern', '\%V\t\%V')
+
+" conceal char for tabs
+let s:visual_whitespace_tab_char =
+      \ get(g:, 'visual_whitespace_space_char', '›')
+
 
 " public
 
-function! drawing#RedrawVisualWhitespace(timer)
+function! drawing#InitializeVisualWhitespace()
+  if s:visual_whitespace_enabled
+    call timer_start(
+          \   s:visual_whitespace_refresh_interval,
+          \   function('s:RedrawVisualWhitespace'),
+          \   { 'repeat': -1 }
+          \ )
+  endif
+endfunction
+
+function! s:RedrawVisualWhitespace(timer)
   if s:IsVisualMode()
     if !s:DoMatchesExist()
       call s:SetConcealSettingsForVisualMode()
       call s:ConfigureConcealMatchesForWhitespace()
       call s:LinkConcealToVisualNonText()
-
       redraw
     endif
   else
@@ -17,7 +50,6 @@ function! drawing#RedrawVisualWhitespace(timer)
       call s:RestoreConcealSettingsToOriginals()
       call s:ClearConcealMatchesForWhitespace()
       call s:UnlinkConcealFromVisualNonText()
-
       redraw
     endif
   endif
@@ -47,16 +79,31 @@ endfunction
 
 function! s:RestoreConcealSettingsToOriginals()
   let &l:concealcursor = get(b:, 'original_concealcursor', &l:concealcursor)
-  let &l:conceallevel  = get(b:, 'original_conceallevel', &l:conceallevel)
+  let &l:conceallevel  = get(b:, 'original_conceallevel',  &l:conceallevel)
 endfunction
 
 function! s:ConfigureConcealMatchesForWhitespace()
-  let b:space_match = matchadd('Conceal', '\%V \%V', 10, -1, { 'conceal': '·' })
+  let b:space_match = matchadd(
+        \   'Conceal',
+        \   s:visual_whitespace_space_pattern,
+        \   10,
+        \   -1,
+        \   { 'conceal': s:visual_whitespace_space_char }
+        \ )
+  let b:tab_match = matchadd(
+        \   'Conceal',
+        \   s:visual_whitespace_tab_pattern,
+        \   10,
+        \   -1,
+        \   { 'conceal': s:visual_whitespace_tab_char }
+        \ )
 endfunction
 
 function! s:ClearConcealMatchesForWhitespace()
   call matchdelete(b:space_match)
+  call matchdelete(b:tab_match)
   unlet b:space_match
+  unlet b:tab_match
 endfunction
 
 function! s:UnlinkConcealFromVisualNonText()
