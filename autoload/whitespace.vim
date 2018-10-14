@@ -1,28 +1,13 @@
 scriptencoding utf-8
 
-" enable
-let s:enable = get(g:, 'visual_whitespace_enable', v:true)
-
-" milliseconds between each timer call
+let s:enable           = get(g:, 'visual_whitespace_enable',           v:true)
+let s:fg_group         = get(g:, 'visual_whitespace_fg_group',         'NonText')
+let s:force_redraw     = get(g:, 'visual_whitespace_force_redraw',     v:true)
 let s:refresh_interval = get(g:, 'visual_whitespace_refresh_interval', 100)
-
-" whether to force a redraw on a highlight change (probably needed)
-let s:force_redraw = get(g:, 'visual_whitespace_force_redraw', v:true)
-
-" pattern to match spaces
-let s:space_pattern = get(g:, 'visual_whitespace_space_pattern', '\%V \%V')
-
-" conceal char for spaces
-let s:space_char = get(g:, 'visual_whitespace_space_char', '·')
-
-" pattern to match tabs
-let s:tab_pattern = get(g:, 'visual_whitespace_tab_pattern', '\v%V\t\zs%V')
-
-" conceal char for tabs
-let s:tab_char = get(g:, 'visual_whitespace_tab_char', '›')
-
-" foreground highlight group for whitespace chars
-let s:fg_group = get(g:, 'visual_whitespace_fg_group', 'NonText')
+let s:space_char       = get(g:, 'visual_whitespace_space_char',       '·')
+let s:space_pattern    = get(g:, 'visual_whitespace_space_pattern',    '\%V \%V')
+let s:tab_char         = get(g:, 'visual_whitespace_tab_char',         '›')
+let s:tab_pattern      = get(g:, 'visual_whitespace_tab_pattern',      '\v%V\t\zs%V')
 
 
 " public
