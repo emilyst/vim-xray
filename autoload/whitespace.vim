@@ -16,7 +16,7 @@ let s:space_pattern = get(g:, 'visual_whitespace_space_pattern', '\%V \%V')
 let s:space_char = get(g:, 'visual_whitespace_space_char', '·')
 
 " pattern to match tabs
-let s:tab_pattern = get(g:, 'visual_whitespace_tab_pattern', '\%V\t\%V')
+let s:tab_pattern = get(g:, 'visual_whitespace_tab_pattern', '\v%V\t\zs%V')
 
 " conceal char for tabs
 let s:tab_char = get(g:, 'visual_whitespace_tab_char', '›')
