@@ -54,8 +54,8 @@ for [Pathogen] and Vim 8's own built-in package method.
 If you're using venerable [Pathogen], clone this directory to your
 bundles.
 
-    git clone https://github.com/emilyst/match-count-statusline.git \
-      ~/.vim/bundle/match-count-statusline
+    git clone https://github.com/emilyst/visual-whitespace.git \
+      ~/.vim/bundle/visual-whitespace
 
 
 ### Vim Packages ###
@@ -71,8 +71,8 @@ plugin under some arbitrary "`start`" directory whose name you probably
 have already have chosen (and which doesn't matter). In the below
 example, I call this directory "`default`."
 
-    git clone https://github.com/emilyst/match-count-statusline.git \
-      ~/.vim/pack/default/start/match-count-statusline
+    git clone https://github.com/emilyst/visual-whitespace.git \
+      ~/.vim/pack/default/start/visual-whitespace
 
 
 [Sublime Text]: https://www.sublimetext.com
