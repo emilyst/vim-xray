@@ -1,4 +1,4 @@
-visual-whitespace.vim
+vim-xray
 =====================
 
 This plugin attempts to emulate a feature found in other text editors
@@ -35,7 +35,7 @@ doesn't get stale.
 To configure the refresh interval, use a setting like this in your
 "`$HOME/.vimrc`." (The units are in milliseconds.)
 
-    let g:visual_whitespace_refresh_interval = 100
+    let g:xray_refresh_interval = 100
 
 In addition, this plugin uses Vim's conceal feature to accomplish its
 job. This means it must manually change some conceal settings in Visual
@@ -61,8 +61,8 @@ for [Pathogen] and Vim 8's own built-in package method.
 If you're using venerable [Pathogen], clone this directory to your
 bundles.
 
-    git clone https://github.com/emilyst/visual-whitespace.git \
-      ~/.vim/bundle/visual-whitespace
+    git clone https://github.com/emilyst/vim-xray.git \
+      $HOME/.vim/bundle/vim-xray
 
 
 ### Vim Packages ###
@@ -78,8 +78,8 @@ plugin under some arbitrary "`start`" directory whose name you probably
 have already have chosen (and which doesn't matter). In the below
 example, I call this directory "`default`."
 
-    git clone https://github.com/emilyst/visual-whitespace.git \
-      ~/.vim/pack/default/start/visual-whitespace
+    git clone https://github.com/emilyst/vim-xray.git \
+      $HOME/.vim/pack/default/start/vim-xray
 
 
 [Sublime Text]: https://www.sublimetext.com

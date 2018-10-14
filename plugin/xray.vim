@@ -9,15 +9,15 @@ if &compatible
       \ || !has('conceal')
       \ || !has('autocmd')
       \ || !has('timers')
-      \ || exists('g:loaded_visual_whitespace')
+      \ || exists('g:loaded_xray')
   finish
 endif
 
-let g:loaded_visual_whitespace = v:true
+let g:loaded_xray = v:true
 
-if !exists('#InitializeVisualWhitespace')
-  augroup InitializeVisualWhitespace
+if !exists('#InitializeXray')
+  augroup InitializeXray
     autocmd!
-    autocmd VimEnter * call whitespace#InitializeVisualWhitespace()
+    autocmd VimEnter * call xray#init#InitializeXray()
   augroup END
 endif

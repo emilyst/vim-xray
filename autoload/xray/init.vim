@@ -1,24 +1,14 @@
 scriptencoding utf-8
 
-let s:enable           = get(g:, 'visual_whitespace_enable',           v:true)
-let s:fg_group         = get(g:, 'visual_whitespace_fg_group',         'NonText')
-let s:force_redraw     = get(g:, 'visual_whitespace_force_redraw',     v:true)
-let s:refresh_interval = get(g:, 'visual_whitespace_refresh_interval', 100)
-let s:space_char       = get(g:, 'visual_whitespace_space_char',       '·')
-let s:space_pattern    = get(g:, 'visual_whitespace_space_pattern',    '\%V \%V')
-let s:tab_char         = get(g:, 'visual_whitespace_tab_char',         '›')
-let s:tab_pattern      = get(g:, 'visual_whitespace_tab_pattern',      '\v%V\t\zs%V')
-
-
 " public
 
 let s:redraw_timer = -1
 
-function! whitespace#InitializeVisualWhitespace()
-  if s:enable
+function! xray#init#InitializeXray()
+  if xray#settings#GetEnableSetting()
     let s:redraw_timer = timer_start(
-          \   s:refresh_interval,
-          \   function('s:RedrawVisualWhitespace'),
+          \   xray#settings#GetRefreshIntervalSetting(),
+          \   function('s:RedrawXray'),
           \   { 'repeat': -1 }
           \ )
   endif
@@ -28,20 +18,20 @@ endfunction
 " private
 
 " main method, called every interval
-function! s:RedrawVisualWhitespace(timer)
+function! s:RedrawXray(timer)
   if s:IsVisualMode()
     if !s:AreWhitespaceHighlightPatternsConfigured()
       call s:ConfigureWhitespaceHighlightPatterns()
       call s:ConfigureConcealOptionsForVisualMode()
-      call s:ConfigureVisualWhitespaceHighlight()
-      if s:force_redraw | redraw | endif
+      call s:ConfigureXrayHighlight()
+      if xray#settings#GetForceRedrawSetting() | redraw | endif
     endif
   else
     if s:AreWhitespaceHighlightPatternsConfigured()
       call s:ClearWhitespaceHighlightPatterns()
       call s:RestoreOriginalConcealOptions()
       call s:RestoreOriginalHighlight()
-      if s:force_redraw | redraw | endif
+      if xray#settings#GetForceRedrawSetting() | redraw | endif
     endif
   endif
 endfunction
@@ -67,17 +57,17 @@ function! s:ConfigureWhitespaceHighlightPatterns()
 
   call add(b:highlight_pattern_matches, matchadd(
         \   'Conceal',
-        \   s:space_pattern,
+        \   xray#settings#GetSpacePatternSetting(),
         \   -1,
         \   -1,
-        \   { 'conceal': s:space_char }
+        \   { 'conceal': xray#settings#GetSpaceCharSetting() }
         \ ))
   call add(b:highlight_pattern_matches, matchadd(
         \   'Conceal',
-        \   s:tab_pattern,
+        \   xray#settings#GetTabPatternSetting(),
         \   -1,
         \   -1,
-        \   { 'conceal': s:tab_char }
+        \   { 'conceal': xray#settings#GetTabCharSetting() }
         \ ))
 endfunction
 
@@ -101,26 +91,25 @@ function! s:RestoreOriginalConcealOptions()
   let &l:conceallevel  = get(b:, 'original_conceallevel',  &l:conceallevel)
 endfunction
 
-function! s:ConfigureVisualWhitespaceHighlight()
-  call s:LinkConcealToVisualWhitespaceHighlightGroup()
+function! s:ConfigureXrayHighlight()
+  call s:LinkConcealToXrayHighlightGroup()
 endfunction
 
 function! s:RestoreOriginalHighlight()
-  execute 'silent highlight Conceal ' . get(b:, 'original_conceal_group_details', '')
-  execute 'highlight clear VisualWhitespace'
+  execute 'silent highlight Conceal ' . get(b:, 'original_conceal_details', '')
+  execute 'highlight clear Xray'
 endfunction
 
 " resulting highlight should have the background of the Visual group and
 " the other attributes of the chosen foreground highlight group
-function! s:LinkConcealToVisualWhitespaceHighlightGroup()
-  let l:visual_group_details           = s:GetHighlightGroupDetails('Visual')
-  let l:fg_group_details               = s:GetHighlightGroupDetails(s:fg_group)
-  let b:original_conceal_group_details = s:GetHighlightGroupDetails('Conceal')
+function! s:LinkConcealToXrayHighlightGroup()
+  let l:visual_details           = s:GetHighlightGroupDetails('Visual')
+  let l:fg_details               = s:GetHighlightGroupDetails(xray#settings#GetFgGroupSetting())
+  let b:original_conceal_details = s:GetHighlightGroupDetails('Conceal')
 
-  " create a 'VisualWhitespace' highlight group which is a crude mash of
-  " the two
-  execute 'highlight VisualWhitespace ' . l:visual_group_details . ' ' . l:fg_group_details
-  execute 'highlight! link Conceal VisualWhitespace'
+  " create a 'Xray' highlight group which is a crude mash of the two
+  execute 'highlight Xray ' . l:visual_details . ' ' . l:fg_details
+  execute 'highlight! link Conceal Xray'
 endfunction
 
 function! s:GetHighlightGroupDetails(group)

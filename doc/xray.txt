@@ -1,0 +1,13 @@
+*xray*             Easily see the count of matches for your search
+
+     Reveal your whitespace in Visual mode
+
+Author:  Emily St <https://emily.st>
+Repo:    https://github.com/emilyst/vim-xray
+License: CC0 (Public Domain)
+
+
+==============================================================================
+CONTENTS                                                 *xray-contents*
+
+TODO
