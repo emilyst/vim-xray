@@ -24,12 +24,12 @@ let s:tab_char = get(g:, 'visual_whitespace_tab_char', '›')
 " foreground highlight group for whitespace chars
 let s:fg_group = get(g:, 'visual_whitespace_fg_group', 'NonText')
 
-let s:redraw_timer = -1
-
 
 " public
 
-function! drawing#InitializeVisualWhitespace()
+let s:redraw_timer = -1
+
+function! whitespace#InitializeVisualWhitespace()
   if s:enabled
     let s:redraw_timer = timer_start(
           \   s:refresh_interval,

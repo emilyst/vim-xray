@@ -18,6 +18,6 @@ let g:loaded_visual_whitespace = v:true
 if !exists('#InitializeVisualWhitespace')
   augroup InitializeVisualWhitespace
     autocmd!
-    autocmd VimEnter * call drawing#InitializeVisualWhitespace()
+    autocmd VimEnter * call whitespace#InitializeVisualWhitespace()
   augroup END
 endif
