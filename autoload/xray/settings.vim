@@ -8,7 +8,7 @@ function! xray#settings#GetEnableSetting()
 endfunction
 
 function! xray#settings#GetFgGroupSetting()
-  return get(g:, 'xray_fg_group',         'NonText')
+  return get(g:, 'xray_fg_group',         'SpecialKey')
 endfunction
 
 function! xray#settings#GetForceRedrawSetting()
