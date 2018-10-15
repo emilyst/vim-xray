@@ -132,13 +132,6 @@ function! s:RestoreOriginalHighlights()
   unlet b:non_text_details
 endfunction
 
-" hi SpecialKey term=bold    ctermfg=8            guifg=#65737e
-" hi Visual     term=reverse           ctermbg=19               guibg=#4f5b66
-" hi Normal                  ctermfg=7 ctermbg=0  guifg=#c0c5ce guibg=#2b303b
-
-" hi SpecialKey term=bold ctermfg=0 guifg=#2b303b ctermbg=0 guibg=#2b303b
-" hi NonText    term=bold ctermfg=0 guifg=#2b303b ctermbg=0 guibg=#2b303b
-
 function! s:GetHighlightGroupDetails(group)
   redir => l:highlight_output
   execute 'silent highlight ' . a:group
