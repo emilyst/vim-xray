@@ -3,9 +3,8 @@ vim-xray
 
 This plugin attempts to emulate a feature found in other text editors
 such as [Sublime Text] which reveals whitespace only when it's selected.
-It is a bit like setting the "`space`" and "`tab`" value of the
-"`listchars`" option on the fly which only applies within a visual
-selection.
+It is a bit like setting some of the values of the "`listchars`" option
+on the fly for visual selections only.
 
 **TODO**: Add an example here.
 
@@ -16,11 +15,8 @@ Status
 This plugin is pre-alpha. It's undocumented. It's not guaranteed to
 work. It might break everything.
 
-In fact, the only thing working right now is revealing spaces. I might
-be able to get other things working, but it will be an even gnarlier
-hack: hacking "`listchars`" on the fly in Visual mode such that the
-"`NonText`" highlight group only appears visible within a visual
-selection.
+Currently, it implements spaces, tabs, ends of lines, and trailing
+whitespace (as a separate setting).
 
 
 How Does It Work?
@@ -43,20 +39,19 @@ To configure the refresh interval, use a setting like this in your
 
     let g:xray_refresh_interval = 100
 
-In addition, this plugin uses Vim's conceal feature to accomplish its
-job. This means it must manually change some conceal settings in Visual
-mode and reset them upon leaving Visual mode. If you have your own
-conceal settings for a buffer, they may unexpectedly change in Visual
-mode while using this plugin.
+This plugin also abuses highlights and the "`listchars`" functionality
+to get the job done. Behind the scenes, it swaps the "`listchars`" out
+while in Visual mode, and it changes the way they're highlighted so that
+they do not appear visible except within a visual selection.
 
 
 Installing
 ----------
 
 This plugin requires a version of Vim of 7.4.1154 or greater. Vim must
-be compiled with the "`+syntax`," "`+conceal`," "`+autocmd`," and
-"`+timers`" features. (Check the output from "`vim --version`" or
-"`:help version`" if you're unsure.)
+be compiled with the "`+syntax`," "`+autocmd`," and "`+timers`"
+features. (Check the output from "`vim --version`" or "`:help version`"
+if you're unsure.)
 
 It may be installed any of the usual ways. Below are the suggested ways
 for [Pathogen] and Vim 8's own built-in package method.

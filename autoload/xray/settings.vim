@@ -7,10 +7,6 @@ function! xray#settings#GetEnableSetting()
   return get(g:, 'xray_enable',           v:true)
 endfunction
 
-function! xray#settings#GetFgGroupSetting()
-  return get(g:, 'xray_fg_group',         'SpecialKey')
-endfunction
-
 function! xray#settings#GetForceRedrawSetting()
   return get(g:, 'xray_force_redraw',     v:true)
 endfunction
@@ -20,10 +16,18 @@ function! xray#settings#GetRefreshIntervalSetting()
 endfunction
 
 " TODO: default to listchars:space
-function! xray#settings#GetSpaceCharSetting()
+function! xray#settings#GetSpaceSetting()
   return get(g:, 'xray_space_char',       '·')
 endfunction
 
-function! xray#settings#GetSpacePatternSetting()
-  return get(g:, 'xray_space_pattern',    ' ')
+function! xray#settings#GetTabSetting()
+  return get(g:, 'xray_tab_char',         '› ')
+endfunction
+
+function! xray#settings#GetEolSetting()
+  return get(g:, 'xray_eol_char',         '¶')
+endfunction
+
+function! xray#settings#GetTrailSetting()
+  return get(g:, 'xray_trail_char',       '·')
 endfunction
