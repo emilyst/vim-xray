@@ -1,6 +1,6 @@
-*xray*             Easily see the count of matches for your search
+*xray*             Reveal your nonprintables in Visual mode
 
-     Reveal your whitespace in Visual mode
+     Reveal your nonprintables in Visual mode
 
 Author:  Emily St <https://emily.st>
 Repo:    https://github.com/emilyst/vim-xray
