@@ -37,7 +37,8 @@ function! s:RedrawXray(timer)
 endfunction
 
 function! s:IsVisualMode()
-  if mode(1) =~ 'v'
+  let l:mode = mode(1)
+  if l:mode ==? 'v' || l:mode ==? ''
     return v:true
   else
     return v:false
