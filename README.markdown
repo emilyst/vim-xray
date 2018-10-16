@@ -1,6 +1,11 @@
 vim-xray
 =====================
 
+&nbsp;&nbsp;&nbsp;&nbsp;"_what in the fuck_"
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;— _[Steve Losh]_
+
+
 This plugin attempts to emulate a feature found in other text editors
 such as [Sublime Text] which reveals whitespace only when it's selected.
 It is a bit like setting some of the values of the "`listchars`" option
@@ -85,6 +90,7 @@ example, I call this directory "`default`."
       $HOME/.vim/pack/default/start/vim-xray
 
 
+[Steve Losh]:   http://learnvimscriptthehardway.stevelosh.com
 [Sublime Text]: https://www.sublimetext.com
-[example]: example.gif
-[Pathogen]: https://github.com/tpope/vim-pathogen
+[example]:      example.gif
+[Pathogen]:     https://github.com/tpope/vim-pathogen
