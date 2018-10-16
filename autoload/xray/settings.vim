@@ -11,12 +11,12 @@ function! xray#settings#GetForceRedraw()
   return get(g:, 'xray_force_redraw', v:true)
 endfunction
 
-function! xray#settings#GetIgnoredFiletypes()
-  return get(g:, 'xray_ignored_filetypes', ['qf', 'nerdtree', 'tagbar'])
-endfunction
-
 function! xray#settings#GetAllowedFiletypes()
   return get(g:, 'xray_allowed_filetypes', [])
+endfunction
+
+function! xray#settings#GetIgnoredFiletypes()
+  return get(g:, 'xray_ignored_filetypes', ['qf', 'nerdtree', 'tagbar'])
 endfunction
 
 function! xray#settings#GetRefreshInterval()

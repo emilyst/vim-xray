@@ -1,5 +1,6 @@
 *xray.txt* Reveal non-printable characters using visual selections
 
+
             8b,     ,d8 8b,dPPYba, ,adPPYYba, 8b       d8 ~
              `Y8, ,8P'  88P'   "Y8 ""     `Y8 `8b     d8' ~
                )888(    88         ,adPPPPP88  `8b   d8'  ~
@@ -16,7 +17,213 @@ Repo:    https://github.com/emilyst/vim-xray
 License: CC0 (Public Domain)
 
 
-==============================================================================
+========================================================================
 CONTENTS                                                 *xray-contents*
 
-TODO
+  1. Introduction ........................... |xray-introduction|
+  1.2. How does it work? .................... |xray-how|
+  2. Status ................................. |xray-status|
+  3. Usage .................................. |xray-usage|
+  4. Configuration .......................... |xray-config|
+    4.1. g:xray_enable ...................... |g:xray_enable|
+    4.2. g:xray_force_redraw ................ |g:xray_force_redraw|
+    4.3. g:xray_allowed_filetypes ........... |g:xray_allowed_filetypes|
+    4.4. g:xray_ignored_filetypes ........... |g:xray_ignored_filetypes|
+    4.5. g:xray_refresh_interval ............ |g:xray_refresh_interval|
+    4.6. g:xray_space_char .................. |g:xray_space_char|
+    4.7. g:xray_tab_chars ................... |g:xray_tab_chars|
+    4.8. g:xray_eol_char .................... |g:xray_eol_char|
+    4.9. g:xray_trail_char .................. |g:xray_trail_char|
+  5. License ................................ |xray-license|
+  6. Bugs ................................... |xray-bugs|
+  7. Contributing ........................... |xray-contributing|
+  8. Changelog .............................. |xray-changelog|
+
+
+========================================================================
+1. Introduction                                      *xray-introduction*
+
+This plugin attempts to emulate a feature found in other text editors
+such as Sublime Text which reveals whitespace only when it's selected.
+It is a bit like setting some of the values of the 'listchars' option
+on the fly for visual selections only.
+
+
+------------------------------------------------------------------------
+1.1. How does it work?                                        *xray-how*
+
+    "what in the fuck"
+        — Steve Losh
+
+It's important to know what you're biting off before installing this
+plugin, as it may have performance and visual implications.
+
+Vim provides no way to know when a user has entered or left Visual mode.
+For this reason, this plugin refreshes its state on a regular interval
+(by default, every tenth of a second) to see if the user has entered or
+left Visual mode.
+
+To configure the refresh interval, use a setting like this in your
+"$HOME/.vimrc." (The units are in milliseconds.) >
+
+    let g:xray_refresh_interval = 100
+
+This plugin also abuses highlighting and the 'listchars' functionality.
+Behind the scenes, it swaps the 'listchars' out while in Visual mode,
+and it changes the way they look so that they blend into the background
+unless they're selected.
+
+
+========================================================================
+2. Status                                                  *xray-status*
+
+This plugin is pre-alpha. It's undocumented. It's not guaranteed to
+work. It might break everything.
+
+Currently, it implements spaces, tabs, ends of lines, and trailing
+whitespace.
+
+
+========================================================================
+3. Usage                                                    *xray-usage*
+
+This plugin takes effect upon installation. To see it in action, select
+some text. Look at the example GIF supplied to see how it could appear.
+
+If you want to customize it, look at the |xray-configuration| below.
+
+
+========================================================================
+4. Configuration                                           *xray-config*
+
+Settings below configure vim-xray. Each setting takes effect immediately
+(or upon a mode change) unless otherwise noted. All settings are shown
+with their defaults
+
+
+------------------------------------------------------------------------
+4.1 g:xray_enable                                        *g:xray_enable*
+
+Globally enables or disables all functionality. >
+
+    let g:xray_enable = 1
+
+Currently does not prevent the timer from firing altogether. If you
+want to prevent xray from working altogether, uninstall it. If you just
+want peace of mind that this plugin isn't checking ten times a second to
+see if it's enabled, you can set the refresh on the timer at start-up to
+something huge. See |g:xray_refresh_interval|.
+
+
+------------------------------------------------------------------------
+4.2 g:xray_force_redraw                            *g:xray_force_redraw*
+
+Forces Vim to redraw the screen when entering or leaving Visual mode. >
+
+    let g:xray_force_redraw = 1
+
+
+------------------------------------------------------------------------
+4.3 g:xray_allowed_filetypes                  *g:xray_allowed_filetypes*
+
+List of filetypes for which the plugin is allowed. >
+
+    let g:xray_allowed_filetypes = []
+
+NOTE: If this is set to a non-empty value, it signifies that xray should
+work ONLY for the supplied filetypes. This overrides
+|g:xray_ignored_filetypes| as well.
+
+
+------------------------------------------------------------------------
+4.4 g:xray_ignored_filetypes                  *g:xray_ignored_filetypes*
+
+List of filetypes for which the plugin is disabled. >
+
+    let g:xray_ignored_filetypes = ['qf', 'nerdtree', 'tagbar']
+
+Not used if |g:xray_allowed_filetypes| is non-empty.
+
+
+------------------------------------------------------------------------
+4.5 g:xray_refresh_interval                    *g:xray_refresh_interval*
+
+How often, in milliseconds, to check which mode the user is in. >
+
+    let g:xray_refresh_interval = 100
+
+Smaller values appear more natural but waste more processing time.
+Larger values are more efficient but may look glitchy for a moment when
+leaving or entering Visual mode.
+
+
+------------------------------------------------------------------------
+4.6 g:xray_space_char                                *g:xray_space_char*
+
+The character to display in place of a single space in a visual
+selection. Behavior is the same as that for |lcs-space|. >
+
+    let g:xray_space_char = '·'
+
+
+------------------------------------------------------------------------
+4.7 g:xray_tab_chars                                  *g:xray_tab_chars*
+
+The characters to display in place of a single tab in a visual
+selection. Behavior is the same as that for |lcs-tab|. >
+
+    let g:xray_tab_chars = '› '
+
+
+------------------------------------------------------------------------
+4.8 g:xray_eol_char                                    *g:xray_eol_char*
+
+The character to display in place of a linebreak in a visual selection.
+Behavior is the same as that for |lcs-eol|. >
+
+    let g:xray_tab_chars = '¶'
+
+
+------------------------------------------------------------------------
+4.9 g:xray_trail_char                                *g:xray_trail_char*
+
+The character to display in place of a trailing space in a visual
+selection. Behavior is the same as that for |lcs-trail|. Note especially
+that this character overrides the appearance of a space for trailing
+spaces. >
+
+    let g:xray_tab_chars = '·'
+
+
+========================================================================
+5. License                                                *xray-license*
+
+Released into the public domain (CC0 license). For details, see:
+https://creativecommons.org/publicdomain/zero/1.0/legalcode
+
+
+========================================================================
+6. Bugs                                                      *xray-bugs*
+
+At this time, it's not possible to configure the color of the
+'listchars' shown in a visual selection due to the hack used to make
+them hide against the background outside of that selection.
+
+
+========================================================================
+7. Contributing                                      *xray-contributing*
+
+To contribute to this plugin, find it on GitHub. Please see the
+CONTRIBUTING file accompanying it for guidelines.
+
+https://github.com/emilyst/vim-xray
+
+
+========================================================================
+8. Changelog                                            *xray-changelog*
+
+2018-10-15
+  * Initial release
+
+
+ vim:tw=72:ts=2:et:ft=help:norl:
