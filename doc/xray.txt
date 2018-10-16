@@ -34,10 +34,12 @@ CONTENTS                                                 *xray-contents*
     4.7. g:xray_tab_chars ................... |g:xray_tab_chars|
     4.8. g:xray_eol_char .................... |g:xray_eol_char|
     4.9. g:xray_trail_char .................. |g:xray_trail_char|
-  5. License ................................ |xray-license|
-  6. Bugs ................................... |xray-bugs|
-  7. Contributing ........................... |xray-contributing|
-  8. Changelog .............................. |xray-changelog|
+  5. Commands ............................... |xray-commands|
+    5.1. :XrayToggle ........................ |:XrayToggle|
+  6. License ................................ |xray-license|
+  7. Bugs ................................... |xray-bugs|
+  8. Contributing ........................... |xray-contributing|
+  9. Changelog .............................. |xray-changelog|
 
 
 ========================================================================
@@ -108,11 +110,15 @@ Globally enables or disables all functionality. >
 
     let g:xray_enable = 1
 
-Currently does not prevent the timer from firing altogether. If you
-want to prevent xray from working altogether, uninstall it. If you just
-want peace of mind that this plugin isn't checking ten times a second to
-see if it's enabled, you can set the refresh on the timer at start-up to
-something huge. See |g:xray_refresh_interval|.
+If it's set to 0 when Vim starts, then the plugin never enables
+entirely, as if it had been toggled off. To enable the plugin, it's not
+enough to set this value to 1 -- you need to use |XrayToggle| to get
+things moving.
+
+If you set it after Vim has started, it has the effect of temporarily
+nullifying the effect of the plugin without altogether disabling it. It
+does not prevent the timer from firing. To do that, you need to toggle
+the plugin off using |XrayToggle|.
 
 
 ------------------------------------------------------------------------
@@ -194,16 +200,31 @@ spaces. >
 
     let g:xray_tab_chars = '·'
 
+========================================================================
+5. Commands                                              *xray-commands*
+
+These commands are available for controlling the plugin's behavior.
+
+
+------------------------------------------------------------------------
+5.1 :XrayToggle                                            *:XrayToggle*
+
+The plugin may be entirely enabled or disabled by using the command
+XrayToggle. This stops the refresh timer, so in that way, it is
+different than |g:xray_enable|. >
+
+    :XrayToggle
+
 
 ========================================================================
-5. License                                                *xray-license*
+6. License                                                *xray-license*
 
 Released into the public domain (CC0 license). For details, see:
 https://creativecommons.org/publicdomain/zero/1.0/legalcode
 
 
 ========================================================================
-6. Bugs                                                      *xray-bugs*
+7. Bugs                                                      *xray-bugs*
 
 At this time, it's not possible to configure the color of the
 'listchars' shown in a visual selection due to the hack used to make
@@ -211,7 +232,7 @@ them hide against the background outside of that selection.
 
 
 ========================================================================
-7. Contributing                                      *xray-contributing*
+8. Contributing                                      *xray-contributing*
 
 To contribute to this plugin, find it on GitHub. Please see the
 CONTRIBUTING file accompanying it for guidelines.
@@ -220,8 +241,10 @@ https://github.com/emilyst/vim-xray
 
 
 ========================================================================
-8. Changelog                                            *xray-changelog*
+9. Changelog                                            *xray-changelog*
 
+2018-10-15
+  * Add XrayToggle command
 2018-10-15
   * Initial release
 
