@@ -1,6 +1,15 @@
-*xray*             Reveal your nonprintables in Visual mode
+*xray.txt* Reveal non-printable characters using visual selections
 
-     Reveal your nonprintables in Visual mode
+            8b,     ,d8 8b,dPPYba, ,adPPYYba, 8b       d8 ~
+             `Y8, ,8P'  88P'   "Y8 ""     `Y8 `8b     d8' ~
+               )888(    88         ,adPPPPP88  `8b   d8'  ~
+             ,d8" "8b,  88         88,    ,88   `8b,d8'   ~
+            8P'     `Y8 88         `"8bbdP"Y8     Y88'    ~
+                                                  d8'     ~
+                                                 d8'      ~
+
+               Reveal your non-printables in Visual mode:
+           See whitespace or line-endings by selecting text!
 
 Author:  Emily St <https://emily.st>
 Repo:    https://github.com/emilyst/vim-xray
