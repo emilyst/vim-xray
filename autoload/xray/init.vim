@@ -5,15 +5,37 @@ scriptencoding utf-8
 
 let s:redraw_timer = -1
 
-function! xray#init#InitializeXray()
+function! xray#init#IsTimerStarted()
+  return s:redraw_timer != -1
+endfunction
+
+function! xray#init#StartXray()
   if xray#settings#GetEnable()
-    let s:redraw_timer = timer_start(
+    let s:redraw_timer =
+          \ timer_start(
           \   xray#settings#GetRefreshInterval(),
           \   function('s:RedrawXray'),
           \   { 'repeat': -1 }
           \ )
   endif
 endfunction
+
+function! xray#init#StopXray()
+  if xray#settings#GetEnable()
+    call timer_stop(s:redraw_timer)
+    let s:redraw_timer = -1
+  endif
+endfunction
+
+function! xray#init#ToggleXray()
+  if xray#init#IsTimerStarted()
+    call xray#init#StopXray()
+  else
+    call xray#init#StartXray()
+  endif
+endfunction
+
+command! -nargs=0 XrayToggle call xray#init#ToggleXray()
 
 
 " private

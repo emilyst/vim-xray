@@ -17,6 +17,6 @@ let g:loaded_xray = v:true
 if !exists('#InitializeXray')
   augroup InitializeXray
     autocmd!
-    autocmd VimEnter * call xray#init#InitializeXray()
+    autocmd VimEnter * call xray#init#StartXray()
   augroup END
 endif
