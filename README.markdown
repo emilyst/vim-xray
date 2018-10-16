@@ -6,7 +6,9 @@ such as [Sublime Text] which reveals whitespace only when it's selected.
 It is a bit like setting some of the values of the "`listchars`" option
 on the fly for visual selections only.
 
-![Animation showing vim-xray][example]<!-- .element height="50%" width="50%" -->
+<p align="center">
+<img src="example.gif" alt="Example of vim-xray usage" width="600px" />
+</p>
 
 
 Status
