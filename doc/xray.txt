@@ -77,8 +77,8 @@ unless they're selected.
 ========================================================================
 2. Status                                                  *xray-status*
 
-This plugin is pre-alpha. It's undocumented. It's not guaranteed to
-work. It might break everything.
+This plugin is pre-alpha. It's not guaranteed to work. It might break
+everything.
 
 Currently, it implements spaces, tabs, ends of lines, and trailing
 whitespace.

@@ -14,8 +14,8 @@ on the fly for visual selections only.
 Status
 ------
 
-This plugin is pre-alpha. It's undocumented. It's not guaranteed to
-work. It might break everything.
+This plugin is alpha. It's not guaranteed to work. It might break
+everything.
 
 Currently, it implements spaces, tabs, ends of lines, and trailing
 whitespace (as a separate setting).
