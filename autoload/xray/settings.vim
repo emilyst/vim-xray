@@ -38,3 +38,21 @@ endfunction
 function! xray#settings#GetTrailChar()
   return get(g:, 'xray_trail_char', '·')
 endfunction
+
+" if allowed filetypes are populated, it overrides the ignore list and
+" means this plugin only works for those specifically allowed filetypes
+function! xray#settings#ShouldIgnoreFiletype()
+  if len(xray#settings#GetAllowedFiletypes()) > 0
+    if count(xray#settings#GetAllowedFiletypes(), &l:filetype) > 0
+      return v:false
+    else
+      return v:true
+    endif
+  else
+    if count(xray#settings#GetIgnoredFiletypes(), &l:filetype) > 0
+      return v:true
+    else
+      return v:false
+    endif
+  endif
+endfunction
