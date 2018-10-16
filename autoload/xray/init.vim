@@ -6,9 +6,9 @@ scriptencoding utf-8
 let s:redraw_timer = -1
 
 function! xray#init#InitializeXray()
-  if xray#settings#GetEnableSetting()
+  if xray#settings#GetEnable()
     let s:redraw_timer = timer_start(
-          \   xray#settings#GetRefreshIntervalSetting(),
+          \   xray#settings#GetRefreshInterval(),
           \   function('s:RedrawXray'),
           \   { 'repeat': -1 }
           \ )
@@ -20,19 +20,37 @@ endfunction
 
 " main method, called every interval
 function! s:RedrawXray(timer)
-  if xray#settings#GetEnableSetting()
+  if xray#settings#GetEnable() && !s:ShouldIgnoreFiletype()
     if s:IsVisualMode()
       if !s:AreWhitespaceHighlightPatternsConfigured()
         call s:ConfigureVisualHighlights()
         call s:ConfigureListOptionsForVisualMode()
-        if xray#settings#GetForceRedrawSetting() | redraw | endif
+        if xray#settings#GetForceRedraw() | redraw | endif
       endif
     else
       if s:AreWhitespaceHighlightPatternsConfigured()
         call s:RestoreOriginalHighlights()
         call s:RestoreOriginalListOptions()
-        if xray#settings#GetForceRedrawSetting() | redraw | endif
+        if xray#settings#GetForceRedraw() | redraw | endif
       endif
+    endif
+  endif
+endfunction
+
+" if allowed filetypes are populated, it overrides the ignore list and
+" means this plugin only works for those specifically allowed filetypes
+function! s:ShouldIgnoreFiletype()
+  if len(xray#settings#GetAllowedFiletypes()) > 0
+    if count(xray#settings#GetAllowedFiletypes(), &l:filetype) > 0
+      return v:false
+    else
+      return v:true
+    endif
+  else
+    if count(xray#settings#GetIgnoredFiletypes(), &l:filetype) > 0
+      return v:true
+    else
+      return v:false
     endif
   endif
 endfunction
@@ -73,20 +91,20 @@ function! s:ConfigureListOptionsForVisualMode()
   " will acquire a local ability
   setlocal listchars=
 
-  if !empty(xray#settings#GetSpaceSetting())
-    execute "setlocal listchars+=space:" . escape((xray#settings#GetSpaceSetting()), ' ')
+  if !empty(xray#settings#GetSpaceChar())
+    execute "setlocal listchars+=space:" . escape((xray#settings#GetSpaceChar()), ' ')
   endif
 
-  if !empty(xray#settings#GetTabSetting())
-    execute "setlocal listchars+=tab:" . escape((xray#settings#GetTabSetting()), ' ')
+  if !empty(xray#settings#GetTabChars())
+    execute "setlocal listchars+=tab:" . escape((xray#settings#GetTabChars()), ' ')
   endif
 
-  if !empty(xray#settings#GetEolSetting())
-    execute "setlocal listchars+=eol:" . escape((xray#settings#GetEolSetting()), ' ')
+  if !empty(xray#settings#GetEolChar())
+    execute "setlocal listchars+=eol:" . escape((xray#settings#GetEolChar()), ' ')
   endif
 
-  if !empty(xray#settings#GetTrailSetting())
-    execute "setlocal listchars+=trail:" . escape((xray#settings#GetTrailSetting()), ' ')
+  if !empty(xray#settings#GetTrailChar())
+    execute "setlocal listchars+=trail:" . escape((xray#settings#GetTrailChar()), ' ')
   endif
 endfunction
 
@@ -99,13 +117,7 @@ function! s:RestoreOriginalListOptions()
 
   setlocal listchars=
   execute 'setlocal listchars=' .
-        \ escape(
-        \   join(
-        \     get(b:, 'original_listchars', split(&l:listchars, ',')),
-        \     ','
-        \   ),
-        \   ' '
-        \ )
+        \ escape(join(get(b:, 'original_listchars', split(&l:listchars, ',')), ','), ' ')
 endfunction
 
 function! s:ConfigureVisualHighlights()
