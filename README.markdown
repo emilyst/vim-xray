@@ -4,15 +4,6 @@ vim-xray
 This is a Vim plugin to reveal non-printable characters using visual
 selections.
 
-
-            8b,     ,d8 8b,dPPYba, ,adPPYYba, 8b       d8
-             `Y8, ,8P'  88P'   "Y8 ""     `Y8 `8b     d8'
-               )888(    88         ,adPPPPP88  `8b   d8'
-             ,d8" "8b,  88         88,    ,88   `8b,d8'
-            8P'     `Y8 88         `"8bbdP"Y8     Y88'
-                                                  d8'
-                                                 d8'
-
 <p align="center">
 <img src="example.gif" alt="Example of vim-xray usage" width="600px" />
 </p>
