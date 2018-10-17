@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-function! xray#list#ConfigureListOptionsForVisualMode()
+function! xray#list#ConfigureListOptionsForVisualMode() abort
   let b:original_list      = &l:list
   let b:original_listchars = split(&l:listchars, ',')
 
@@ -30,7 +30,7 @@ function! xray#list#ConfigureListOptionsForVisualMode()
   endif
 endfunction
 
-function! xray#list#RestoreOriginalListOptions()
+function! xray#list#RestoreOriginalListOptions() abort
   if get(b:, 'original_list', &l:list)
     setlocal list
   else

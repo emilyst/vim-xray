@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-function! xray#highlight#AreWhitespaceHighlightPatternsConfigured()
+function! xray#highlight#AreWhitespaceHighlightPatternsConfigured() abort
   if get(b:, 'special_key_details', xray#highlight#GetHighlightGroupDetails('SpecialKey'))
         \ !=? xray#highlight#GetHighlightGroupDetails('SpecialKey')
     return v:true
@@ -14,7 +14,7 @@ function! xray#highlight#AreWhitespaceHighlightPatternsConfigured()
   return v:false
 endfunction
 
-function! xray#highlight#ConfigureVisualHighlights()
+function! xray#highlight#ConfigureVisualHighlights() abort
   let b:special_key_details = xray#highlight#GetHighlightGroupDetails('SpecialKey')
   let b:non_text_details    = xray#highlight#GetHighlightGroupDetails('NonText')
 
@@ -30,7 +30,7 @@ function! xray#highlight#ConfigureVisualHighlights()
   execute 'silent highlight NonText    term=bold gui=bold ' . join(l:colors, ' ')
 endfunction
 
-function! xray#highlight#RestoreOriginalHighlights()
+function! xray#highlight#RestoreOriginalHighlights() abort
   execute 'silent highlight SpecialKey ' .
         \ get(b:, 'special_key_details', xray#highlight#GetHighlightGroupDetails('SpecialKey'))
   execute 'silent highlight NonText    ' .
@@ -40,7 +40,7 @@ function! xray#highlight#RestoreOriginalHighlights()
   unlet b:non_text_details
 endfunction
 
-function! xray#highlight#GetHighlightGroupDetails(group)
+function! xray#highlight#GetHighlightGroupDetails(group) abort
   redir => l:highlight_output
   execute 'silent highlight ' . a:group
   redir END

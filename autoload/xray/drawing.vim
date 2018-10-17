@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-function! xray#drawing#RedrawXray(timer)
+function! xray#drawing#RedrawXray(timer) abort
   if xray#settings#GetEnable() && !xray#settings#ShouldIgnoreFiletype()
     if xray#mode#IsVisualMode()
       if !xray#highlight#AreWhitespaceHighlightPatternsConfigured()
