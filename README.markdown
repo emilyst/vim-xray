@@ -95,7 +95,7 @@ Installing
 ----------
 
 This plugin requires a version of Vim of 7.4.1154 or greater. Vim must
-be compiled with the ["`+syntax`"]", ["`+autocmd`"], and ["`+timers`"]
+be compiled with the ["`+syntax`"], ["`+autocmd`"], and ["`+timers`"]
 features. (Check the output from "`vim --version`" or "`:version`" if
 you're unsure.)
 
