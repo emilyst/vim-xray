@@ -262,7 +262,8 @@ Contributing
 ------------
 
 To contribute to this plugin, find it on GitHub. Please see the
-[CONTRIBUTING][CONTRIBUTING.md] file accompanying it for guidelines.
+[CONTRIBUTING](CONTRIBUTING.markdown) file accompanying it for
+guidelines.
 
 https://github.com/emilyst/vim-xray
 
