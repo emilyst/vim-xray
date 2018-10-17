@@ -13,7 +13,6 @@ selections.
                                                   d8'
                                                  d8'
 
-
 <p align="center">
 <img src="example.gif" alt="Example of vim-xray usage" width="600px" />
 </p>
@@ -30,15 +29,15 @@ Contents
   * [Vim Packages](#vim-packages)
 * [Usage](#usage)
 * [Configuration](#configuration)
-  * ["`g:xray_enable`"](#gxray-enable)
-  * ["`g:xray_force_redraw`"](#gxray-force-redraw)
-  * ["`g:xray_allowed_filetypes`"](#gxray-allowed-filetypes)
-  * ["`g:xray_ignored_filetypes`"](#gxray-ignored-filetypes)
-  * ["`g:xray_refresh_interval`"](#gxray-refresh-interval)
-  * ["`g:xray_space_char`"](#gxray-space-char)
-  * ["`g:xray_tab_chars`"](#gxray-tab-chars)
-  * ["`g:xray_eol_char`"](#gxray-eol-char)
-  * ["`g:xray_trail_char`"](#gxray-trail-char)
+  * ["`g:xray_enable`"](#gxray_enable)
+  * ["`g:xray_force_redraw`"](#gxray_force_redraw)
+  * ["`g:xray_allowed_filetypes`"](#gxray_allowed_filetypes)
+  * ["`g:xray_ignored_filetypes`"](#gxray_ignored_filetypes)
+  * ["`g:xray_refresh_interval`"](#gxray_refresh_interval)
+  * ["`g:xray_space_char`"](#gxray_space_char)
+  * ["`g:xray_tab_chars`"](#gxray_tab_chars)
+  * ["`g:xray_eol_char`"](#gxray_eol_char)
+  * ["`g:xray_trail_char`"](#gxray_trail_char)
 * [Commands](#commands)
   * ["`:XrayToggle`"](#xraytoggle)
 * [License](#license)
