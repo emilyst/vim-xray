@@ -170,7 +170,7 @@ List of filetypes for which the plugin is allowed.
 
 **NOTE**: If this is set to a non-empty value, it signifies that xray
 should work _only_ for the supplied filetypes. This overrides
-["`g:xray_ignored_filetypes`"](#gxray-ignored-filetypes) as well.
+["`g:xray_ignored_filetypes`"](#gxray_ignored_filetypes) as well.
 
 
 ### `g:xray_ignored_filetypes` ###
@@ -179,7 +179,7 @@ List of filetypes for which the plugin is disabled. >
 
     let g:xray_ignored_filetypes = ['qf', 'nerdtree', 'tagbar']
 
-Not used if ["`g:xray_allowed_filetypes`"](#gxray-allowed-filetypes) is
+Not used if ["`g:xray_allowed_filetypes`"](#gxray_allowed_filetypes) is
 non-empty.
 
 
@@ -238,7 +238,7 @@ These commands are available for controlling the plugin's behavior.
 
 The plugin may be entirely enabled or disabled by using the command
 XrayToggle. This stops the refresh timer, so in that way, it is
-different than ["`g:xray_enable`"](#gxray-enable).
+different than ["`g:xray_enable`"](#gxray_enable).
 
     :XrayToggle
 
