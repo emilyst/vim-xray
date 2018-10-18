@@ -20,17 +20,17 @@ Contents
   * [Vim Packages](#vim-packages)
 * [Usage](#usage)
 * [Configuration](#configuration)
-  * ["`g:xray_enable`"](#gxray_enable)
-  * ["`g:xray_force_redraw`"](#gxray_force_redraw)
-  * ["`g:xray_allowed_filetypes`"](#gxray_allowed_filetypes)
-  * ["`g:xray_ignored_filetypes`"](#gxray_ignored_filetypes)
-  * ["`g:xray_refresh_interval`"](#gxray_refresh_interval)
-  * ["`g:xray_space_char`"](#gxray_space_char)
-  * ["`g:xray_tab_chars`"](#gxray_tab_chars)
-  * ["`g:xray_eol_char`"](#gxray_eol_char)
-  * ["`g:xray_trail_char`"](#gxray_trail_char)
+  * [`g:xray_enable`](#gxray_enable)
+  * [`g:xray_force_redraw`](#gxray_force_redraw)
+  * [`g:xray_allowed_filetypes`](#gxray_allowed_filetypes)
+  * [`g:xray_ignored_filetypes`](#gxray_ignored_filetypes)
+  * [`g:xray_refresh_interval`](#gxray_refresh_interval)
+  * [`g:xray_space_char`](#gxray_space_char)
+  * [`g:xray_tab_chars`](#gxray_tab_chars)
+  * [`g:xray_eol_char`](#gxray_eol_char)
+  * [`g:xray_trail_char`](#gxray_trail_char)
 * [Commands](#commands)
-  * ["`:XrayToggle`"](#xraytoggle)
+  * [`:XrayToggle`](#xraytoggle)
 * [License](#license)
 * [Bugs](#bugs)
 * [Contributing](#contributing)
@@ -42,7 +42,7 @@ Introduction
 
 This plugin attempts to emulate a feature found in other text editors
 such as [Sublime Text] which reveals whitespace only when it's selected.
-It is a bit like setting some of the values of the ["`listchars`"] option
+It is a bit like setting some of the values of the [`listchars`] option
 on the fly for visual selections only.
 
 
@@ -65,8 +65,8 @@ To configure the refresh interval, use a setting like this in your
 
     let g:xray_refresh_interval = 100
 
-This plugin also abuses highlighting and the ["`listchars`"]
-functionality. Behind the scenes, it swaps the ["`listchars`"] out while
+This plugin also abuses highlighting and the [`listchars`]
+functionality. Behind the scenes, it swaps the [`listchars`] out while
 in Visual mode, and it changes the way they look so that they blend into
 the background unless they're selected.
 
@@ -86,7 +86,7 @@ Installing
 ----------
 
 This plugin requires a version of Vim of 7.4.1154 or greater. Vim must
-be compiled with the ["`+syntax`"], ["`+autocmd`"], and ["`+timers`"]
+be compiled with the [`+syntax`], [`+autocmd`], and [`+timers`]
 features. (Check the output from "`vim --version`" or "`:version`" if
 you're unsure.)
 
@@ -147,12 +147,12 @@ Globally enables or disables all functionality.
 If it's set to 0 when Vim starts, then the plugin never enables
 entirely, as if it had been toggled off. To enable the plugin, it's not
 enough to set this value to 1 -- you need to use
-["`XrayToggle`"](#xraytoggle) to get things moving.
+[`XrayToggle`](#xraytoggle) to get things moving.
 
 If you set it after Vim has started, it has the effect of temporarily
 nullifying the effect of the plugin without altogether disabling it. It
 does not prevent the timer from firing. To do that, you need to toggle
-the plugin off using ["`XrayToggle`"](#xraytoggle).
+the plugin off using [`XrayToggle`](#xraytoggle).
 
 
 ### `g:xray_force_redraw` ###
@@ -170,7 +170,7 @@ List of filetypes for which the plugin is allowed.
 
 **NOTE**: If this is set to a non-empty value, it signifies that xray
 should work _only_ for the supplied filetypes. This overrides
-["`g:xray_ignored_filetypes`"](#gxray_ignored_filetypes) as well.
+[`g:xray_ignored_filetypes`](#gxray_ignored_filetypes) as well.
 
 
 ### `g:xray_ignored_filetypes` ###
@@ -179,7 +179,7 @@ List of filetypes for which the plugin is disabled. >
 
     let g:xray_ignored_filetypes = ['qf', 'nerdtree', 'tagbar']
 
-Not used if ["`g:xray_allowed_filetypes`"](#gxray_allowed_filetypes) is
+Not used if [`g:xray_allowed_filetypes`](#gxray_allowed_filetypes) is
 non-empty.
 
 
@@ -197,7 +197,7 @@ leaving or entering Visual mode.
 ### `g:xray_space_char` ###
 
 The character to display in place of a single space in a visual
-selection. Behavior is the same as that for ["`lcs-space`"].
+selection. Behavior is the same as that for [`lcs-space`].
 
     let g:xray_space_char = '·'
 
@@ -205,7 +205,7 @@ selection. Behavior is the same as that for ["`lcs-space`"].
 ### `g:xray_tab_chars` ###
 
 The characters to display in place of a single tab in a visual
-selection. Behavior is the same as that for ["`lcs-tab`"]. >
+selection. Behavior is the same as that for [`lcs-tab`]. >
 
     let g:xray_tab_chars = '› '
 
@@ -213,7 +213,7 @@ selection. Behavior is the same as that for ["`lcs-tab`"]. >
 ### `g:xray_eol_char` ###
 
 The character to display in place of a linebreak in a visual selection.
-Behavior is the same as that for ["`lcs-eol`"].
+Behavior is the same as that for [`lcs-eol`].
 
     let g:xray_eol_char = '¶'
 
@@ -221,7 +221,7 @@ Behavior is the same as that for ["`lcs-eol`"].
 ### `g:xray_trail_char` ###
 
 The character to display in place of a trailing space in a visual
-selection. Behavior is the same as that for ["`lcs-trail`"]. **Note**
+selection. Behavior is the same as that for [`lcs-trail`]. **Note**
 especially that this character overrides the appearance of a space for
 trailing spaces.
 
@@ -238,7 +238,7 @@ These commands are available for controlling the plugin's behavior.
 
 The plugin may be entirely enabled or disabled by using the command
 XrayToggle. This stops the refresh timer, so in that way, it is
-different than ["`g:xray_enable`"](#gxray_enable).
+different than [`g:xray_enable`](#gxray_enable).
 
     :XrayToggle
 
@@ -254,7 +254,7 @@ Bugs
 ----
 
 At this time, it's not possible to configure the color of the
-["`listchars`"] shown in a visual selection due to the hack used to make
+[`listchars`] shown in a visual selection due to the hack used to make
 them hide against the background outside of that selection.
 
 
@@ -279,15 +279,15 @@ Changelog
   * Initial release
 
 
-["`listchars`"]: http://vimhelp.appspot.com/options.txt.html#%27listchars%27
-["`+syntax`"]:   http://vimhelp.appspot.com/syntax.txt.html
-["`+autocmd`"]:  http://vimhelp.appspot.com/autocmd.txt.html
-["`+timers`"]:   http://vimhelp.appspot.com/eval.txt.html#timers
-[Steve Losh]:    http://learnvimscriptthehardway.stevelosh.com
-[Sublime Text]:  https://www.sublimetext.com
-[example]:       example.gif
-[Pathogen]:      https://github.com/tpope/vim-pathogen
-["`lcs-space`"]: http://vimhelp.appspot.com/options.txt.html#lcs-space
-["`lcs-tab`"]:   http://vimhelp.appspot.com/options.txt.html#lcs-tab
-["`lcs-eol`"]:   http://vimhelp.appspot.com/options.txt.html#lcs-eol
-["`lcs-trail`"]: http://vimhelp.appspot.com/options.txt.html#lcs-trail
+[`listchars`]:  http://vimhelp.appspot.com/options.txt.html#%27listchars%27
+[`+syntax`]:    http://vimhelp.appspot.com/syntax.txt.html
+[`+autocmd`]:   http://vimhelp.appspot.com/autocmd.txt.html
+[`+timers`]:    http://vimhelp.appspot.com/eval.txt.html#timers
+[Steve Losh]:   http://learnvimscriptthehardway.stevelosh.com
+[Sublime Text]: https://www.sublimetext.com
+[example]:      example.gif
+[Pathogen]:     https://github.com/tpope/vim-pathogen
+[`lcs-space`]:  http://vimhelp.appspot.com/options.txt.html#lcs-space
+[`lcs-tab`]:    http://vimhelp.appspot.com/options.txt.html#lcs-tab
+[`lcs-eol`]:    http://vimhelp.appspot.com/options.txt.html#lcs-eol
+[`lcs-trail`]:  http://vimhelp.appspot.com/options.txt.html#lcs-trail
