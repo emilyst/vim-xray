@@ -18,16 +18,29 @@ function! xray#highlight#ConfigureVisualHighlights() abort
   let b:special_key_details = xray#highlight#GetHighlightGroupDetails('SpecialKey')
   let b:non_text_details    = xray#highlight#GetHighlightGroupDetails('NonText')
 
-  let l:colors = []
-  for arg in split(xray#highlight#GetHighlightGroupDetails('Normal'))
-    if arg =~ 'bg'
-      call add(l:colors, arg)
-      call add(l:colors, substitute(arg, 'bg', 'fg', ''))
-    endif
-  endfor
+  let l:normal_termbg_color  = synIDattr(hlID('Normal'), 'bg', 'term')
+  let l:normal_ctermbg_color = synIDattr(hlID('Normal'), 'bg', 'cterm')
+  let l:normal_guibg_color   = synIDattr(hlID('Normal'), 'bg', 'gui')
 
-  execute 'silent highlight SpecialKey term=bold gui=bold ' . join(l:colors, ' ')
-  execute 'silent highlight NonText    term=bold gui=bold ' . join(l:colors, ' ')
+  let l:visual_highlight = ''
+  if !empty(l:normal_termbg_color)
+    let l:visual_highlight .= ' term=bold' .
+          \ ' termbg=' . l:normal_termbg_color .
+          \ ' termfg=' . l:normal_termbg_color
+  endif
+  if !empty(l:normal_ctermbg_color)
+    let l:visual_highlight .= ' cterm=bold' .
+          \ ' ctermbg=' . l:normal_ctermbg_color .
+          \ ' ctermfg=' . l:normal_ctermbg_color
+  endif
+  if !empty(l:normal_guibg_color)
+    let l:visual_highlight .= ' gui=bold' .
+          \ ' guibg=' . l:normal_guibg_color .
+          \ ' guifg=' . l:normal_guibg_color
+  endif
+
+  execute 'silent highlight SpecialKey ' . l:visual_highlight
+  execute 'silent highlight NonText    ' . l:visual_highlight
 endfunction
 
 function! xray#highlight#RestoreOriginalHighlights() abort
