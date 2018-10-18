@@ -32,4 +32,6 @@ function! xray#control#ToggleXray() abort
   endif
 endfunction
 
-command! -nargs=0 XrayToggle call xray#control#ToggleXray()
+if has('user_commands')
+  command! -nargs=0 XrayToggle call xray#control#ToggleXray()
+endif

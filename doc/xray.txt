@@ -92,9 +92,9 @@ whitespace.
 3. Installing                                          *xray-installing*
 
 This plugin requires a version of Vim of 7.4.1154 or greater. Vim must
-be compiled with the "|+syntax|," "|+autocmd|," and "|+timers|"
-features. (Check the output from `vim --version` or "|:version|" if
-you're unsure.)
+be compiled with the |visual| (always included since version 7.4.200),
+|syntax|, |autocmd|, and |timers| features. (Check the output from
+|:version| if you're unsure.)
 
 It may be installed any of the usual ways. Below are the suggested ways
 for Pathogen and Vim 8's own built-in package method.

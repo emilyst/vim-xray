@@ -86,9 +86,9 @@ Installing
 ----------
 
 This plugin requires a version of Vim of 7.4.1154 or greater. Vim must
-be compiled with the [`+syntax`], [`+autocmd`], and [`+timers`]
-features. (Check the output from "`vim --version`" or "`:version`" if
-you're unsure.)
+be compiled with the [`visual`] (always included since version 7.4.200),
+[`syntax`], [`autocmd`], and [`timers`] features. (Check the output from
+"`vim --version`" or "`:version`" if you're unsure.)
 
 It may be installed any of the usual ways. Below are the suggested ways
 for [Pathogen] and Vim 8's own built-in package method.
@@ -280,9 +280,10 @@ Changelog
 
 
 [`listchars`]:  http://vimhelp.appspot.com/options.txt.html#%27listchars%27
-[`+syntax`]:    http://vimhelp.appspot.com/syntax.txt.html
-[`+autocmd`]:   http://vimhelp.appspot.com/autocmd.txt.html
-[`+timers`]:    http://vimhelp.appspot.com/eval.txt.html#timers
+[`visual`]:     http://vimhelp.appspot.com/visual.txt.html
+[`syntax`]:     http://vimhelp.appspot.com/syntax.txt.html
+[`autocmd`]:    http://vimhelp.appspot.com/autocmd.txt.html
+[`timers`]:     http://vimhelp.appspot.com/eval.txt.html#timers
 [Steve Losh]:   http://learnvimscriptthehardway.stevelosh.com
 [Sublime Text]: https://www.sublimetext.com
 [example]:      example.gif
