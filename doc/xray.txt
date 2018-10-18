@@ -267,9 +267,11 @@ https://creativecommons.org/publicdomain/zero/1.0/legalcode
 ========================================================================
 8. Bugs                                                      *xray-bugs*
 
-At this time, it's not possible to configure the color of the
-'listchars' shown in a visual selection due to the hack used to make
-them hide against the background outside of that selection.
+* If a colorscheme does not set the background color for Normal, drawing
+  or syntax errors may occur. Work is being done to fix this.
+* At this time, it's not possible to configure the color of the
+  'listchars' shown in a visual selection due to the hack used to make
+  them hide against the background outside of that selection.
 
 
 ========================================================================
