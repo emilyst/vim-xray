@@ -31,8 +31,9 @@ Contents
   * [`g:xray_trail_char`](#gxray_trail_char)
 * [Commands](#commands)
   * [`:XrayToggle`](#xraytoggle)
-* [License](#license)
 * [Bugs](#bugs)
+* [FAQ](#faq)
+* [License](#license)
 * [Contributing](#contributing)
 * [Changelog](#changelog)
 
@@ -243,21 +244,87 @@ different than [`g:xray_enable`](#gxray_enable).
     :XrayToggle
 
 
+Bugs
+----
+
+* If a colorscheme does not set the background color for Normal, this
+  plugin cannot work and does nothing. (For example, the "default"
+  colorscheme.)
+* Some terminals are not detected properly nor supported (e.g., urxvt).
+* Sometimes Vim wrongly guesses the background color, causing
+  [`listchars`] to show up outside of a visual selection.
+* At this time, it's not possible to configure the color of the
+  [`listchars`] shown in a visual selection due to the hack used to make
+  them hide against the background outside of that selection.
+
+
+FAQ
+---
+
+Below are some questions that you might have while trying to use
+vim-xray. Many of these are due to [bugs](#bugs) or weird gotchas due to
+[the implementation](#how-does-it-work).
+
+
+### Why doesn't anything happen when I select stuff? ###
+
+Check a few things.
+
+* Are you using a terminal without colors? I don't know how to
+  support those yet.
+* Are you using a more unusual terminal, like rxvt, the Linux console,
+  the original xterm, or some such? I found that there were drawing bugs
+  and have limited support for those. I can't list all the supported
+  terminals for sure because I don't know them all, but I've tested on
+  several.
+* Is the environment variable `$TERM` set? Is it set to an unusual
+  value? This could be causing either my plugin or Vim to have trouble
+  detecting your terminal capabilities.
+* Are you using the default colorscheme? Vim is unable to detect the
+  background color in that case because it's not set. You can either
+  switch colorschemes, or you can manually set the background to the
+  same as for your terminal with something like the following in your
+  "$HOME/.vimrc".
+
+      hi Normal ctermbg=0
+
+
+### Why do I see whitespace outside of the selection in Visual mode? ###
+
+This isn't intended. This is a bug. You're welcome to tell me about it,
+but I'm not sure I'll be able to do anything but disable support for
+your terminal.
+
+
+### I switched colorschemes, and now the whitespace is showing up. ###
+
+That's not a question, but I see your point. Vim detects your background
+color from the "Normal" highlight group once and only once. It seems to
+expect you won't change it again.
+
+I could attempt to parse it out every time I need to set up for Visual
+mode, but that's error-prone and expensive. It optimizes for
+a corner-case that really isn't worthwhile.
+
+If you want to change your colorscheme, close and reopen Vim for my
+plugin to look right again. Otherwise, [toggle it off](#xraytoggle) for
+the time being.
+
+
+### I'm seeing my whitespace even outside of Visual mode. Now what? ###
+
+Yeah, this is a bug. I'm sorry about that. This is likely some state
+that has gotten messed up inadvertently. (Event-driven concurrency is
+hard.) Restarting Vim should fix it up. If you are able to cause this to
+happen through an easy-to-reproduce process, let me know.
+
+
 License
 -------
 
 Released into the public domain (CC0 license). For details, see:
 https://creativecommons.org/publicdomain/zero/1.0/legalcode
 
-
-Bugs
-----
-
-* If a colorscheme does not set the background color for Normal, drawing
-  or syntax errors may occur. Work is being done to fix this.
-* At this time, it's not possible to configure the color of the
-  [`listchars`] shown in a visual selection due to the hack used to make
-  them hide against the background outside of that selection.
 
 
 Contributing
@@ -273,6 +340,9 @@ https://github.com/emilyst/vim-xray
 Changelog
 ---------
 
+* 2018-10-18
+  * Improved highlighting detection corner-cases
+  * Added FAQ
 * 2018-10-16
   * Fixed and harmonized documentation
 * 2018-10-15
