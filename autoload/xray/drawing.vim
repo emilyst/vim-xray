@@ -9,7 +9,6 @@ function! xray#drawing#DrawXray(timer) abort
         try
           call xray#highlight#SaveOriginalHighlights()
           call xray#list#SaveOriginalListOptions()
-
           call xray#highlight#ConfigureVisualHighlights()
           call xray#list#ConfigureListOptionsForVisualMode()
         catch
