@@ -72,7 +72,7 @@ function! xray#highlight#IsColorTerm() abort
   if has('terminfo')
     if &term =~ 'gui'
       let g:xray_use_cterm = v:false
-    elseif (&term =~ 'term' || &term =~ 'color') && exists('&t_Co') && &t_Co >= 8
+    elseif (&term =~ '\(term\|color\|rxvt\)') && exists('&t_Co') && &t_Co >= 8
       let g:xray_use_cterm = v:true
     endif
   endif
