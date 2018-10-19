@@ -11,7 +11,7 @@ function! xray#control#StartXray() abort
     let s:redraw_timer =
           \ timer_start(
           \   xray#settings#GetRefreshInterval(),
-          \   function('xray#drawing#RedrawXray'),
+          \   function('xray#drawing#DrawXray'),
           \   { 'repeat': -1 }
           \ )
   endif
