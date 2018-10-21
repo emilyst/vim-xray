@@ -37,6 +37,7 @@ CONTENTS                                                 *xray-contents*
     5.7. g:xray_tab_chars ................... |g:xray_tab_chars|
     5.8. g:xray_eol_char .................... |g:xray_eol_char|
     5.9. g:xray_trail_char .................. |g:xray_trail_char|
+   5.10. g:xray_verbose ..................... |g:xray_verbose|
   6. Commands ............................... |xray-commands|
     6.1. :XrayToggle ........................ |:XrayToggle|
   7. Bugs ................................... |xray-bugs|
@@ -242,6 +243,15 @@ spaces. >
 
     let g:xray_trail_char = '·'
 
+
+------------------------------------------------------------------------
+5.10 g:xray_verbose                                     *g:xray_verbose*
+
+Enable printing some extra details, such as error messages. >
+
+    let g:xray_verbose = 0
+
+
 ========================================================================
 6. Commands                                              *xray-commands*
 
@@ -357,6 +367,10 @@ https://github.com/emilyst/vim-xray
 ========================================================================
 11. Changelog                                           *xray-changelog*
 
+* 2018-10-21
+  * Fixed some bugs on non-truecolor terminals
+  * Added some performance improvements
+  * Added a verbose setting (|g:xray_verbose|)
 * 2018-10-18
   * Improved highlighting detection corner-cases
   * Added FAQ

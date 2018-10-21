@@ -13,6 +13,11 @@ function! xray#drawing#DrawXray(timer) abort
           call xray#highlight#ConfigureVisualHighlights()
           call xray#list#ConfigureListOptionsForVisualMode()
         catch
+          if xray#settings#GetVerbose()
+            echom 'Caught exception while counting matches: "' .
+                  \ v:exception . '" from ' . v:throwpoint
+          endif
+
           call xray#highlight#RestoreOriginalHighlights()
           call xray#list#RestoreOriginalListOptions()
           if xray#settings#GetForceRedraw() | redraw | endif

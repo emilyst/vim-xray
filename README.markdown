@@ -29,6 +29,7 @@ Contents
   * [`g:xray_tab_chars`](#gxray_tab_chars)
   * [`g:xray_eol_char`](#gxray_eol_char)
   * [`g:xray_trail_char`](#gxray_trail_char)
+  * [`g:xray_verbose`](#gxray_verbose)
 * [Commands](#commands)
   * [`:XrayToggle`](#xraytoggle)
 * [Bugs](#bugs)
@@ -229,6 +230,13 @@ trailing spaces.
     let g:xray_trail_char = '·'
 
 
+### `g:xray_verbose` ###
+
+Enable printing some extra details, such as error messages.
+
+    let g:xray_verbose = 0
+
+
 Commands
 --------
 
@@ -340,6 +348,10 @@ https://github.com/emilyst/vim-xray
 Changelog
 ---------
 
+* 2018-10-21
+  * Fixed some bugs on non-truecolor terminals
+  * Added some performance improvements
+  * Added a verbose setting ([`g:xray_verbose`](#gxray_verbose))
 * 2018-10-18
   * Improved highlighting detection corner-cases
   * Added FAQ

@@ -39,6 +39,10 @@ function! xray#settings#GetTrailChar() abort
   return get(g:, 'xray_trail_char', '·')
 endfunction
 
+function! xray#settings#GetVerbose() abort
+  return get(g:, 'xray_verbose', v:false)
+endfunction
+
 " if allowed filetypes are populated, it overrides the ignore list and
 " means this plugin only works for those specifically allowed filetypes
 function! xray#settings#ShouldIgnoreFiletype() abort
