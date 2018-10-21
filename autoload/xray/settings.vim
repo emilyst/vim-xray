@@ -1,8 +1,5 @@
 scriptencoding utf-8
 
-
-" public
-
 function! xray#settings#GetEnable() abort
   return get(g:, 'xray_enable', v:true)
 endfunction

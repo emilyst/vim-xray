@@ -152,7 +152,7 @@ endfunction
 " Assume this can't change during a Vim session. (It can, but if it
 " does, we can't really recover gracefully regardless: see `:help E419`
 " or `:help E420`.)
-function! xray#highlight#CanSetHighlight()
+function! xray#highlight#CanSetHighlight() abort
   if exists('g:xray_can_set_highlight')
     return g:xray_can_set_highlight
   endif
@@ -190,4 +190,3 @@ function! xray#highlight#GetBackgroundsForHighlightGroup(group) abort
 
   return g:xray_background_highlights
 endfunction
-

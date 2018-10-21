@@ -14,8 +14,7 @@ function! xray#drawing#DrawXray(timer) abort
           call xray#list#ConfigureListOptionsForVisualMode()
         catch
           if xray#settings#GetVerbose()
-            echom 'Caught exception while counting matches: "' .
-                  \ v:exception . '" from ' . v:throwpoint
+            echom 'Caught exception "' . v:exception . '" from ' . v:throwpoint
           endif
 
           call xray#highlight#RestoreOriginalHighlights()
