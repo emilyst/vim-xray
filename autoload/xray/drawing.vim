@@ -6,6 +6,7 @@ function! xray#drawing#DrawXray(timer) abort
         \ && xray#highlight#CanSetHighlight()
     if xray#mode#IsVisualMode()
       if !xray#list#AreXrayListOptionsConfigured()
+            \ && !xray#highlight#AreXrayHighlightsConfigured()
         try
           call xray#highlight#SaveOriginalHighlights()
           call xray#list#SaveOriginalListOptions()
@@ -20,6 +21,7 @@ function! xray#drawing#DrawXray(timer) abort
       endif
     else
       if xray#list#AreXrayListOptionsConfigured()
+            \ && xray#highlight#AreXrayHighlightsConfigured()
         call xray#highlight#RestoreOriginalHighlights()
         call xray#list#RestoreOriginalListOptions()
         if xray#settings#GetForceRedraw() | redraw | endif
