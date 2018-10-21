@@ -293,25 +293,37 @@ implementation.
 ------------------------------------------------------------------------
 Why doesn't anything happen when I select stuff?
 
-Check a few things.
+vim-xray checks a few things before attempting to draw whitespace during
+Visual mode. It's likely one of these checks failed. You can tell if one
+of these checks failed yourself by running this command. >
 
-* Are you using a terminal without colors? I don't know how to
-  support those yet.
+    :echo xray#highlight#CanSetHighlight()
+
+If that command prints |v:false|, you can check a few things.
+
+* Are you using a terminal without colors at all? I don't know how to
+  support those.
 * Are you using a more unusual terminal, like rxvt, the Linux console,
   the original xterm, or some such? I found that there were drawing bugs
   and have limited support for those. I can't list all the supported
   terminals for sure because I don't know them all, but I've tested on
-  several.
-* Is the environment variable `$TERM` set? Is it set to an unusual
-  value? This could be causing either my plugin or Vim to have trouble
-  detecting your terminal capabilities.
-* Are you using the default colorscheme? Vim is unable to detect the
+  several. If you're using one of these, and you believe I should
+  support it, let me know.
+* Is the environment variable `$TERM` not set? Is it set to an unusual
+  value? If either of these are the case, this could be causing either
+  my plugin or Vim to have trouble detecting your terminal capabilities.
+* Are you using the "default" |colorscheme|? Vim is unable to detect the
   background color in that case because it's not set. You can either
   switch colorschemes, or you can manually set the background to the
   same as for your terminal with something like the following in your
   "$HOME/.vimrc". >
 
-    hi Normal ctermbg=0
+      hi Normal ctermbg=0
+
+If that command printed |v:true|, something else is amiss. You can set
+|g:xray_verbose| to 1 or |v:true|, and you'll see if an error prints out
+at the bottom of the screen when vim-xray tries to draw whitespace in
+Visual mode.
 
 
 ------------------------------------------------------------------------
@@ -323,19 +335,20 @@ your terminal.
 
 
 ------------------------------------------------------------------------
-I switched colorschemes, and now the whitespace is showing up.
+I switched colorschemes, and now I see whitespace outside of selections.
 
-That's not a question, but I see your point. Vim detects your background
-color from the "Normal" highlight group once and only once. It seems to
-expect you won't change it again.
+That's not a question, but I see your point. The problem is, my plugin
+assumes you will not change your colorscheme at runtime.
 
-I could attempt to parse it out every time I need to set up for Visual
-mode, but that's error-prone and expensive. It optimizes for
-a corner-case that really isn't worthwhile.
+Vim detects your background color from the "Normal" highlight group once
+and only once. It seems to expect you won't change it again. I could
+attempt to parse it out every time I need to set up for Visual mode, but
+that's error-prone. It optimizes for a corner-case that really isn't
+worthwhile.
 
-If you want to change your colorscheme, close and reopen Vim for my
-plugin to look right again. Otherwise, toggle it off (|:XrayToggle|) for
-the time being.
+If you want to change your colorscheme, close and reopen Vim for
+vim-xray to look right again. Otherwise, toggle it off (|:XrayToggle|)
+for the time being.
 
 
 ------------------------------------------------------------------------
@@ -371,6 +384,7 @@ https://github.com/emilyst/vim-xray
   * Fixed some bugs on non-truecolor terminals
   * Added some performance improvements
   * Added a verbose setting (|g:xray_verbose|)
+  * Improve the FAQ
 * 2018-10-18
   * Improved highlighting detection corner-cases
   * Added FAQ
