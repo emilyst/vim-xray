@@ -15,7 +15,6 @@ function! xray#drawing#DrawXray(timer) abort
           endif
           call xray#highlight#RestoreOriginalHighlights()
           call xray#list#RestoreOriginalListOptions()
-          if xray#settings#GetForceRedraw() | redraw | endif
         endtry
         if xray#settings#GetForceRedraw() | redraw | endif
       endif
