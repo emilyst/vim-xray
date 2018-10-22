@@ -15,6 +15,7 @@ Contents
 * [Introduction](#introduction)
   * [How does it work?](#how-does-it-work)
 * [Status](#status)
+* [Requirements](#requirements)
 * [Installing](#installing)
   * [Pathogen](#pathogen)
   * [Vim Packages](#vim-packages)
@@ -76,24 +77,44 @@ the background unless they're selected.
 Status
 ------
 
-This plugin is alpha. It's not guaranteed to work. It might break
-everything.
+This plugin should be considered beta-status. This means it'll probably
+work if you meet the requirements, but not everything is finished, and
+it might break.
 
 Currently, it implements spaces, tabs, ends of lines, and trailing
 whitespace.
 
 
+Requirements
+------------
+
+This plugin requires a version of Vim of 7.4.1154 or greater. Vim must
+be compiled with the [`visual`] (always included since version 7.4.200),
+[`syntax`], [`autocmd`], and [`timers`] features. Check the output from
+"`vim --version`" or "`:version`" if you're unsure, but most Vim builds
+include these.
+
+Not every terminal emulator works. Most common, modern ones I've tested
+with do. If you install the plugin and nothing happens, see the
+[FAQ](#faq) for troubleshooting.
+
+Finally, the colorscheme for Vim must be set to one which sets the
+background color for the "Normal" highlight group. Most do, but the
+"default" colorscheme does not. If you're unsure, use this command to
+see what your "Normal" says.
+
+    :hi Normal
+
+If you see words like "`ctermbg`" and "`guibg`" in there somewhere, then
+you're set. If in doubt, just try the plugin out. If nothing happens,
+see the [FAQ](#faq) for troubleshooting.
+
 
 Installing
 ----------
 
-This plugin requires a version of Vim of 7.4.1154 or greater. Vim must
-be compiled with the [`visual`] (always included since version 7.4.200),
-[`syntax`], [`autocmd`], and [`timers`] features. (Check the output from
-"`vim --version`" or "`:version`" if you're unsure.)
-
-It may be installed any of the usual ways. Below are the suggested ways
-for [Pathogen] and Vim 8's own built-in package method.
+This plugin may be installed any of the usual ways. Below are the
+suggested ways for [Pathogen] and Vim 8's own built-in package method.
 
 
 ### Pathogen ###
@@ -177,7 +198,7 @@ should work _only_ for the supplied filetypes. This overrides
 
 ### `g:xray_ignored_filetypes` ###
 
-List of filetypes for which the plugin is disabled. >
+List of filetypes for which the plugin is disabled.
 
     let g:xray_ignored_filetypes = ['qf', 'nerdtree', 'tagbar']
 
@@ -207,7 +228,7 @@ selection. Behavior is the same as that for [`lcs-space`].
 ### `g:xray_tab_chars` ###
 
 The characters to display in place of a single tab in a visual
-selection. Behavior is the same as that for [`lcs-tab`]. >
+selection. Behavior is the same as that for [`lcs-tab`].
 
     let g:xray_tab_chars = '› '
 

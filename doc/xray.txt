@@ -21,30 +21,31 @@ License: CC0 (Public Domain)
 CONTENTS                                                 *xray-contents*
 
   1. Introduction ........................... |xray-introduction|
-  1.2. How does it work? .................... |xray-how|
+    1.2. How does it work? .................. |xray-how|
   2. Status ................................. |xray-status|
-  3. Installing ............................. |xray-installing|
-    3.1 Pathogen ............................ |xray-installing-pathogen|
-    3.2 Vim Packages ........................ |xray-installing-vim|
-  4. Usage .................................. |xray-usage|
-  5. Configuration .......................... |xray-config|
-    5.1. g:xray_enable ...................... |g:xray_enable|
-    5.2. g:xray_force_redraw ................ |g:xray_force_redraw|
-    5.3. g:xray_allowed_filetypes ........... |g:xray_allowed_filetypes|
-    5.4. g:xray_ignored_filetypes ........... |g:xray_ignored_filetypes|
-    5.5. g:xray_refresh_interval ............ |g:xray_refresh_interval|
-    5.6. g:xray_space_char .................. |g:xray_space_char|
-    5.7. g:xray_tab_chars ................... |g:xray_tab_chars|
-    5.8. g:xray_eol_char .................... |g:xray_eol_char|
-    5.9. g:xray_trail_char .................. |g:xray_trail_char|
-   5.10. g:xray_verbose ..................... |g:xray_verbose|
-  6. Commands ............................... |xray-commands|
-    6.1. :XrayToggle ........................ |:XrayToggle|
-  7. Bugs ................................... |xray-bugs|
-  8. FAQ .................................... |xray-faq|
-  9. License ................................ |xray-license|
- 10. Contributing ........................... |xray-contributing|
- 11. Changelog .............................. |xray-changelog|
+  3. Requirements ........................... |xray-requirements|
+  4. Installing ............................. |xray-installing|
+    4.1 Pathogen ............................ |xray-installing-pathogen|
+    4.2 Vim Packages ........................ |xray-installing-vim|
+  5. Usage .................................. |xray-usage|
+  6. Configuration .......................... |xray-config|
+    6.1. g:xray_enable ...................... |g:xray_enable|
+    6.2. g:xray_force_redraw ................ |g:xray_force_redraw|
+    6.3. g:xray_allowed_filetypes ........... |g:xray_allowed_filetypes|
+    6.4. g:xray_ignored_filetypes ........... |g:xray_ignored_filetypes|
+    6.5. g:xray_refresh_interval ............ |g:xray_refresh_interval|
+    6.6. g:xray_space_char .................. |g:xray_space_char|
+    6.7. g:xray_tab_chars ................... |g:xray_tab_chars|
+    6.8. g:xray_eol_char .................... |g:xray_eol_char|
+    6.9. g:xray_trail_char .................. |g:xray_trail_char|
+   6.10. g:xray_verbose ..................... |g:xray_verbose|
+  7. Commands ............................... |xray-commands|
+    7.1. :XrayToggle ........................ |:XrayToggle|
+  8. Bugs ................................... |xray-bugs|
+  9. FAQ .................................... |xray-faq|
+ 10. License ................................ |xray-license|
+ 11. Contributing ........................... |xray-contributing|
+ 12. Changelog .............................. |xray-changelog|
 
 
 ========================================================================
@@ -84,26 +85,49 @@ unless they're selected.
 ========================================================================
 2. Status                                                  *xray-status*
 
-This plugin is alpha. It's not guaranteed to work. It might break
-everything.
+This plugin should be considered beta-status. This means it'll probably
+work if you meet the requirements, but not everything is finished, and
+it might break.
 
 Currently, it implements spaces, tabs, ends of lines, and trailing
 whitespace.
 
+
 ========================================================================
-3. Installing                                          *xray-installing*
+3. Requirements                                      *xray-requirements*
 
 This plugin requires a version of Vim of 7.4.1154 or greater. Vim must
 be compiled with the |visual| (always included since version 7.4.200),
-|syntax|, |autocmd|, and |timers| features. (Check the output from
-|:version| if you're unsure.)
+|syntax|, |autocmd|, and |timers| features. Check the output from "vim
+--version" or `:version` if you're unsure, but most Vim builds include
+these.
+
+Not every terminal emulator works. Most common, modern ones I've tested
+with do. If you install the plugin and nothing happens, see the
+|xray-faq| for troubleshooting.
+
+Finally, the colorscheme for Vim must be set to one which sets the
+background color for the "Normal" highlight group. Most do, but the
+"default" colorscheme does not. If you're unsure, use this command to
+see what your "Normal" says. >
+
+    :hi Normal
+
+If you see words like |ctermbg| and |guibg| in there somewhere, then
+you're set. If in doubt, just try the plugin out. If nothing happens,
+see the |xray-faq| for troubleshooting.
+
+
+========================================================================
+4. Installing                                          *xray-installing*
+
 
 It may be installed any of the usual ways. Below are the suggested ways
 for Pathogen and Vim 8's own built-in package method.
 
 
 ------------------------------------------------------------------------
-3.1 Pathogen                                  *xray-installing-pathogen*
+4.1 Pathogen                                  *xray-installing-pathogen*
 
 If you're using venerable Pathogen, clone this directory to your
 bundles. >
@@ -113,7 +137,7 @@ bundles. >
 
 
 ------------------------------------------------------------------------
-3.1 Vim Packages                                   *xray-installing-vim*
+4.2 Vim Packages                                   *xray-installing-vim*
 
 This is also installable as a Vim package (see |packages|) if you're
 running a version of Vim greater than or equal to 8.
@@ -130,7 +154,7 @@ example, I call this directory "`default`." >
       $HOME/.vim/pack/default/start/vim-xray
 
 ========================================================================
-4. Usage                                                    *xray-usage*
+5. Usage                                                    *xray-usage*
 
 This plugin takes effect upon installation. To see it in action, select
 some text. Look at the example GIF supplied to see how it could appear.
@@ -139,7 +163,7 @@ If you want to customize it, look at the |xray-configuration| below.
 
 
 ========================================================================
-5. Configuration                                           *xray-config*
+6. Configuration                                           *xray-config*
 
 Settings below configure vim-xray. Each setting takes effect immediately
 (or upon a mode change) unless otherwise noted. All settings are shown
@@ -147,7 +171,7 @@ with their defaults.
 
 
 ------------------------------------------------------------------------
-5.1 g:xray_enable                                        *g:xray_enable*
+6.1 g:xray_enable                                        *g:xray_enable*
 
 Globally enables or disables all functionality. >
 
@@ -165,7 +189,7 @@ the plugin off using |XrayToggle|.
 
 
 ------------------------------------------------------------------------
-5.2 g:xray_force_redraw                            *g:xray_force_redraw*
+6.2 g:xray_force_redraw                            *g:xray_force_redraw*
 
 Forces Vim to redraw the screen when entering or leaving Visual mode. >
 
@@ -173,7 +197,7 @@ Forces Vim to redraw the screen when entering or leaving Visual mode. >
 
 
 ------------------------------------------------------------------------
-5.3 g:xray_allowed_filetypes                  *g:xray_allowed_filetypes*
+6.3 g:xray_allowed_filetypes                  *g:xray_allowed_filetypes*
 
 List of filetypes for which the plugin is allowed. >
 
@@ -185,7 +209,7 @@ work ONLY for the supplied filetypes. This overrides
 
 
 ------------------------------------------------------------------------
-5.4 g:xray_ignored_filetypes                  *g:xray_ignored_filetypes*
+6.4 g:xray_ignored_filetypes                  *g:xray_ignored_filetypes*
 
 List of filetypes for which the plugin is disabled. >
 
@@ -195,7 +219,7 @@ Not used if |g:xray_allowed_filetypes| is non-empty.
 
 
 ------------------------------------------------------------------------
-5.5 g:xray_refresh_interval                    *g:xray_refresh_interval*
+6.5 g:xray_refresh_interval                    *g:xray_refresh_interval*
 
 How often, in milliseconds, to check which mode the user is in. >
 
@@ -207,7 +231,7 @@ leaving or entering Visual mode.
 
 
 ------------------------------------------------------------------------
-5.6 g:xray_space_char                                *g:xray_space_char*
+6.6 g:xray_space_char                                *g:xray_space_char*
 
 The character to display in place of a single space in a visual
 selection. Behavior is the same as that for |lcs-space|. >
@@ -216,7 +240,7 @@ selection. Behavior is the same as that for |lcs-space|. >
 
 
 ------------------------------------------------------------------------
-5.7 g:xray_tab_chars                                  *g:xray_tab_chars*
+6.7 g:xray_tab_chars                                  *g:xray_tab_chars*
 
 The characters to display in place of a single tab in a visual
 selection. Behavior is the same as that for |lcs-tab|. >
@@ -225,7 +249,7 @@ selection. Behavior is the same as that for |lcs-tab|. >
 
 
 ------------------------------------------------------------------------
-5.8 g:xray_eol_char                                    *g:xray_eol_char*
+6.8 g:xray_eol_char                                    *g:xray_eol_char*
 
 The character to display in place of a linebreak in a visual selection.
 Behavior is the same as that for |lcs-eol|. >
@@ -234,7 +258,7 @@ Behavior is the same as that for |lcs-eol|. >
 
 
 ------------------------------------------------------------------------
-5.9 g:xray_trail_char                                *g:xray_trail_char*
+6.9 g:xray_trail_char                                *g:xray_trail_char*
 
 The character to display in place of a trailing space in a visual
 selection. Behavior is the same as that for |lcs-trail|. Note especially
@@ -245,7 +269,7 @@ spaces. >
 
 
 ------------------------------------------------------------------------
-5.10 g:xray_verbose                                     *g:xray_verbose*
+6.10 g:xray_verbose                                     *g:xray_verbose*
 
 Enable printing some extra details, such as error messages. >
 
@@ -253,13 +277,13 @@ Enable printing some extra details, such as error messages. >
 
 
 ========================================================================
-6. Commands                                              *xray-commands*
+7. Commands                                              *xray-commands*
 
 These commands are available for controlling the plugin's behavior.
 
 
 ------------------------------------------------------------------------
-6.1 :XrayToggle                                            *:XrayToggle*
+7.1 :XrayToggle                                            *:XrayToggle*
 
 The plugin may be entirely enabled or disabled by using the command
 XrayToggle. This stops the refresh timer, so in that way, it is
@@ -269,7 +293,7 @@ different than |g:xray_enable|. >
 
 
 ========================================================================
-7. Bugs                                                      *xray-bugs*
+8. Bugs                                                      *xray-bugs*
 
 * If a colorscheme does not set the background color for Normal, this
   plugin cannot work and does nothing. (For example, the "default"
@@ -283,7 +307,7 @@ different than |g:xray_enable|. >
 
 
 ========================================================================
-8. FAQ                                                        *xray-faq*
+9. FAQ                                                        *xray-faq*
 
 Below are some questions that you might have while trying to use
 vim-xray. Many of these are due to bugs or weird gotchas due to the
@@ -361,7 +385,7 @@ happen through an easy-to-reproduce process, let me know.
 
 
 ========================================================================
-9. License                                                *xray-license*
+10. License                                               *xray-license*
 
 Released into the public domain (CC0 license). For details, see:
 https://creativecommons.org/publicdomain/zero/1.0/legalcode
@@ -369,7 +393,7 @@ https://creativecommons.org/publicdomain/zero/1.0/legalcode
 
 
 ========================================================================
-10. Contributing                                     *xray-contributing*
+11. Contributing                                     *xray-contributing*
 
 To contribute to this plugin, find it on GitHub. Please see the
 CONTRIBUTING file accompanying it for guidelines.
@@ -378,7 +402,7 @@ https://github.com/emilyst/vim-xray
 
 
 ========================================================================
-11. Changelog                                           *xray-changelog*
+12. Changelog                                           *xray-changelog*
 
 * 2018-10-21
   * Fixed some bugs on non-truecolor terminals
