@@ -279,12 +279,16 @@ Bugs
 * If a colorscheme does not set the background color for Normal, this
   plugin cannot work and does nothing. (For example, the "default"
   colorscheme.)
+* This plugin assumes the colorscheme does not change during a Vim
+  session. It glitches if it does.
 * Some terminals are not detected properly nor supported (e.g., urxvt).
 * Sometimes Vim wrongly guesses the background color, causing
   [`listchars`] to show up outside of a visual selection.
 * At this time, it's not possible to configure the color of the
   [`listchars`] shown in a visual selection due to the hack used to make
   them hide against the background outside of that selection.
+  * This could be addressed in a future version using some syntax
+    trickery.
 
 
 FAQ
@@ -387,6 +391,8 @@ Changelog
   * Added some performance improvements
   * Added a verbose setting ([`g:xray_verbose`](#gxray_verbose))
   * Improve the FAQ
+  * Update status
+  * Explicitly note requirements
 * 2018-10-18
   * Improved highlighting detection corner-cases
   * Added FAQ
