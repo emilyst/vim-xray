@@ -386,6 +386,8 @@ https://github.com/emilyst/vim-xray
 Changelog
 ---------
 
+* 2018-11-22
+  * Detect Visual mode using built-in function
 * 2018-10-21
   * Fixed some bugs on non-truecolor terminals
   * Added some performance improvements

@@ -2,7 +2,7 @@ scriptencoding utf-8
 
 function! xray#drawing#DrawXray(timer) abort
   if xray#settings#GetEnable() && !xray#settings#ShouldIgnoreFiletype() && xray#highlight#CanSetHighlight()
-    if xray#mode#IsVisualMode()
+    if !empty(visualmode())
       if !xray#list#AreXrayListOptionsConfigured() && !xray#highlight#AreXrayHighlightsConfigured()
         try
           call xray#highlight#SaveOriginalHighlights()
