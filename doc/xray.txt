@@ -408,6 +408,8 @@ https://github.com/emilyst/vim-xray
 ========================================================================
 12. Changelog                                           *xray-changelog*
 
+* 2018-11-22
+  * Detect select mode as well
 * 2018-10-21
   * Fixed some bugs on non-truecolor terminals
   * Added some performance improvements
