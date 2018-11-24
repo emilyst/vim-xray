@@ -361,6 +361,11 @@ This isn't intended. This is a bug. You're welcome to tell me about it,
 but I'm not sure I'll be able to do anything but disable support for
 your terminal.
 
+You can try a few things. Are you using a translucent/transparent
+terminal? This is problematic for extremely complex reasons which are
+difficult to explain here, but using an opaque terminal is the only
+solution for now.
+
 
 ------------------------------------------------------------------------
 I switched colorschemes, and now I see whitespace outside of selections.
