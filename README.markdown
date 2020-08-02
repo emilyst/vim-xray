@@ -1,6 +1,8 @@
 vim-xray
 ========
 
+**Note: This plugin is effectively abandoned and no longer maintained.**
+
 This is a Vim plugin to reveal non-printable characters using visual
 selections.
 
@@ -76,6 +78,8 @@ the background unless they're selected.
 
 Status
 ------
+
+**Note: This plugin is effectively abandoned and no longer maintained.**
 
 This plugin should be considered beta-status. This means it'll probably
 work if you meet the requirements, but not everything is finished, and
@@ -391,6 +395,8 @@ https://github.com/emilyst/vim-xray
 Changelog
 ---------
 
+* 2020-08-02
+  * Updated status to abandoned.
 * 2018-11-22
   * Detect select mode as well
 * 2018-10-21

@@ -56,6 +56,8 @@ such as Sublime Text which reveals whitespace only when it's selected.
 It is a bit like setting some of the values of the 'listchars' option
 on the fly for visual selections only.
 
+**Note: This plugin is effectively abandoned and no longer maintained.**
+
 
 ------------------------------------------------------------------------
 1.1. How does it work?                                        *xray-how*
@@ -84,6 +86,8 @@ unless they're selected.
 
 ========================================================================
 2. Status                                                  *xray-status*
+
+**Note: This plugin is effectively abandoned and no longer maintained.**
 
 This plugin should be considered beta-status. This means it'll probably
 work if you meet the requirements, but not everything is finished, and
@@ -413,6 +417,8 @@ https://github.com/emilyst/vim-xray
 ========================================================================
 12. Changelog                                           *xray-changelog*
 
+* 2020-08-02
+  * Updated status to abandoned.
 * 2018-11-22
   * Detect select mode as well
 * 2018-10-21
